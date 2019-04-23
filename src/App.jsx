@@ -9,7 +9,7 @@ export default function App() {
   return (
     <Router>
       <Route path="/Recipe/:id" exact component={Recipe} />
-      <Route path="/Home" component={() => <Home />} />
+      <Route path="/" component={() => <Recipe />} />
       <Route path="/Browse" component={() => <Browse />} />
     </Router>
   );
