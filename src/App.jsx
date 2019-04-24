@@ -8,8 +8,8 @@ import Recipe from './Views/Recipe';
 export default function App() {
   return (
     <Router>
-      <Route path="/Recipe/:id" exact component={Recipe} />
-      {/* <Route path="/" component={Recipe} /> */}
+      <Route path="/Recipe/:id" component={Recipe} />
+      <Route path="/" component={Home} />
       <Route path="/Browse" component={() => <Browse />} />
     </Router>
   );

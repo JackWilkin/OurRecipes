@@ -61,6 +61,7 @@ const EGGS = {
 const INGREDIENTS = [SALT, PARMESAN, PASTA, BACON, EGGS];
 
 const RECIPE_FULL = {
+  id: 2,
   scaler: 2,
   title: 'Full Recipe',
   subTitle: 'Mock Subtitle',
@@ -74,6 +75,7 @@ const RECIPE_FULL = {
 };
 
 const RECIPE_1 = {
+  id: 1,
   title: 'Recipe 1',
   isCelsius: false,
   instructions: LOREM_2,
