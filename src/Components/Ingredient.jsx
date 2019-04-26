@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Tab } from 'semantic-ui-react';
-import { decimalToFraction, convertUnit } from '../utils';
+import { decimalToFraction, convertUnit, createIngredientDisplay } from '../utils';
 import { mediumBlue, lightBlue } from '../Styles/constants';
 import RecipeContext from '../Context/RecipeContext';
 
@@ -101,34 +101,28 @@ const Unit = styled(Tab)`
   }
 `;
 
-function createIngredientDisplay(ingredient) {
-  let ingredientDisplay = ingredient.name;
-  if (ingredient.plural && !ingredient.hasUnit && ingredient.quantity > 1) {
-    ingredientDisplay = ingredient.plural;
-  }
-
-  return ingredientDisplay;
-}
-
 function Ingredient(props) {
   const { ingredient } = props;
   const { availableUnits, scaler } = useContext(RecipeContext);
-  const [selectedUnit, setSelectedUnit] = React.useState(
-    ingredient.hasUnit ? ingredient.unit.id : 0,
-  );
   const [openTabs, setOpenTabs] = React.useState(false);
-  const [quantity, setQuantity] = React.useState(ingredient.quantity);
+  const [currentQuantity, setCurrentQuantity] = React.useState(ingredient.quantity);
+  const [currentUnit, setCurrentUnit] = React.useState(ingredient.unit);
+  const [currentIngredient, setCurrentIngredient] = React.useState(ingredient.name);
+  const viewIngredient = {
+    quantity: currentQuantity,
+    unit: currentUnit,
+    name: currentIngredient,
+  };
 
-  const quantityDisplay = decimalToFraction(quantity * scaler, 1000);
-  const ingredientDisplay = createIngredientDisplay(ingredient);
+  const ingredientDisplayInfo = createIngredientDisplay({ ingredient: viewIngredient, scaler });
 
   const toggleTab = () => setOpenTabs(!openTabs);
 
   const handleTabChange = (e, { activeIndex }) => {
     const newUnit = availableUnits[activeIndex];
     const origionalUnit = ingredient.unit;
-    setQuantity(convertUnit(ingredient.quantity, newUnit.scaler, origionalUnit.scaler));
-    setSelectedUnit(newUnit.id);
+    setCurrentQuantity(convertUnit(ingredient.quantity, origionalUnit.scaler, newUnit.scaler));
+    setCurrentUnit(availableUnits[newUnit.id]);
   };
 
   const panes = availableUnits.map(u => (
@@ -162,20 +156,20 @@ function Ingredient(props) {
       ),
     };
   }
-
+  
   return (
     <IngredientTool>
-      <Quantity>{quantityDisplay}</Quantity>
+      <Quantity>{ingredientDisplayInfo.quantityDisplay}</Quantity>
       <Unit
-        defaultActiveIndex={selectedUnit}
+        defaultActiveIndex={currentUnit ? currentUnit.id : 0}
         onTabChange={handleTabChange}
         hasUnit={ingredient.hasUnit}
         unitConvertable={ingredient.unitConvertable}
         menu={{ attached: 'bottom' }}
-        open={openTabs}
+        open={ingredient.unitConvertable && openTabs}
         panes={panes}
       />
-      <IngredientDisplay>{ingredientDisplay}</IngredientDisplay>
+      <IngredientDisplay>{ingredientDisplayInfo.ingredientDisplay}</IngredientDisplay>
     </IngredientTool>
   );
 }

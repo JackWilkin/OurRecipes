@@ -4,13 +4,12 @@ import { darkBlue } from '../Styles/constants';
 import pasta from '../Content/Images/pasta.png';
 import pancake from '../Content/Images/pancake.jpeg';
 import cake from '../Content/Images/chocolate-cake.png';
+import { createIngredientDisplay } from '../utils';
 
 const StyledRecipePreview = styled.div`
     border: 1px solid ${darkBlue};
     display: flex;
-    margin: auto;
-    width: 80%;
-    margin-bottom: 3rem;
+    background-color: white;
 `;
 
 const RecipeImage = styled.div`
@@ -24,6 +23,8 @@ const StyledImage = styled.img`
 `;
 
 const RecipeInfo = styled.div`
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
     min-width: 10rem;
 `;
@@ -35,9 +36,18 @@ const RecipeTitle = styled.div`
     display: flex;
     font-size: 1.5rem;
     font-weight: bold;
-    height: 3rem;
+    min-height: 3rem;
     padding-left: 0.75rem;
     width: 100%;
+`;
+
+
+const RecipeServings = styled.div`
+    padding: 0.5rem;
+`;
+
+const RecipeIngredient = styled.div`
+    padding-left: 0.5rem;
 `;
 
 export default function RecipePreview(props) {
@@ -60,13 +70,9 @@ export default function RecipePreview(props) {
   let ingredients;
   if (recipe.ingredients.length > 0) {
     ingredients = recipe.ingredients.map(ingredient => (
-      <div>
-        {ingredient.quantity}
-        {' '}
-        {ingredient.unit ? ingredient.unit.name : ''}
-        {' '}
-        {ingredient.quantity > 1 ? ingredient.plural : ingredient.name}
-      </div>
+      <RecipeIngredient>
+        {createIngredientDisplay({ ingredient, scaler: 1 }).ingredientString}
+      </RecipeIngredient>
     ));
   }
 
@@ -75,6 +81,12 @@ export default function RecipePreview(props) {
       <RecipeImage><StyledImage src={source} alt={recipe.id} /></RecipeImage>
       <RecipeInfo>
         <RecipeTitle>{recipe.title}</RecipeTitle>
+        {recipe.servings && (
+        <RecipeServings>
+          { `Servings: ${recipe.servings}`}
+        </RecipeServings>
+        )
+        }
         {ingredients}
       </RecipeInfo>
     </StyledRecipePreview>

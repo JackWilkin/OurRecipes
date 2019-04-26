@@ -30,9 +30,22 @@ export function convertTemperature(temperature, isCelsius) {
   return Math.round((temperature - 32) * 5 / 9);
 }
 
-export function convertUnit(quantity, newUnitScaler, origionalUnitScaler) {
+export function convertUnit(quantity, origionalUnitScaler, newUnitScaler) {
   if (quantity === null) {
     return quantity;
   }
   return quantity * newUnitScaler / origionalUnitScaler;
+}
+
+export function createIngredientDisplay({ ingredient, scaler }) {
+  const quantity = ingredient.quantity * scaler;
+  const quantityDisplay = decimalToFraction(quantity, 1000);
+  let unitDisplay = ingredient.unit ? ingredient.unit.name : '';
+  unitDisplay = unitDisplay !== '' && quantity > 1 && ingredient.unit.plural ? ingredient.unit.plural : unitDisplay;
+  const ingredientDisplay = quantity > 1 && ingredient.plural ? ingredient.plural : ingredient.name;
+  const ingredientString = `${quantityDisplay} ${unitDisplay} ${ingredientDisplay}`;
+
+  return {
+    ingredientString, quantityDisplay, unitDisplay, ingredientDisplay,
+  };
 }

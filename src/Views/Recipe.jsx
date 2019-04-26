@@ -10,7 +10,7 @@ import useRecipeData from '../Hooks/useRecipeData';
 
 const titleFontSize = '4rem';
 
-const RecipePage = styled.main`
+const RecipePage = styled.div`
     display: flex;
     flex-direction: column;
     width: 85%;

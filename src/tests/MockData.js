@@ -92,6 +92,8 @@ const BARE_RECIPE = {
 
 const RECIPES = [RECIPE_FULL, BARE_RECIPE, RECIPE_1];
 
-const MOCK_DATA = { recipe: RECIPE_FULL, recipes: RECIPES, availableUnits: AVAILABLE_UNITS };
+const MOCK_DATA = {
+  recipe: RECIPE_FULL, recipes: RECIPES, availableUnits: AVAILABLE_UNITS, ingredients: INGREDIENTS,
+};
 
 export default MOCK_DATA;
