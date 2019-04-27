@@ -67,6 +67,7 @@ export default function App() {
 
       <Route path="/Recipe/:id" component={Recipe} />
       <Route exact path="/" component={() => <Home context={browseContext} />} />
+      <Route exact path="/OurRecipes" component={() => <Home context={browseContext} />} />
       <Route path="/Browse" component={() => <Browse context={browseContext} />} />
     </Router>
   );

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import RecipeSidebar from '../Components/RecipeSidebar';
 import RecipeIngredients from '../Components/RecipeIngredients';
 import RecipeContext from '../Context/RecipeContext';
-import RecipeImage from '../Content/Images/pasta.png';
 import { onMobile } from '../Styles/constants';
 import useRecipeData from '../Hooks/useRecipeData';
 
@@ -74,12 +73,6 @@ const StyledImage = styled.img`
     height: auto;
     width: 100%;
 `;
-
-// const StyledImage = styled.div`
-//     ${props => (props.id ? `background-image: url('src/Content/Recipe Images/${props.id}.jpg')` : 'display: none')};
-//     height: auto;
-//     width: 100%;
-// `;
 
 function Recipe(props) {
   const recipeId = props.match.params.id;

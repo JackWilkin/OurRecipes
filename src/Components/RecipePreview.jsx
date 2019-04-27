@@ -2,10 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { darkBlue } from '../Styles/constants';
-import pasta from '../Content/Images/pasta.png';
-import dumplings from '../Content/Recipe Images/17.jpg';
-import pancake from '../Content/Images/pancake.jpeg';
-import muffins from '../Content/Recipe Images/14.JPG';
 import { createIngredientDisplay } from '../utils';
 
 const StyledRecipePreview = styled.div`
@@ -72,22 +68,15 @@ const RecipeIngredients = styled.div`
 export default function RecipePreview(props) {
   const { recipe } = props;
 
-  let source;
-
-  switch (recipe.id) {
-    case 15:
-      source = pasta;
-      break;
-    case 17:
-      source = dumplings;
-      break;
-    case 14:
-      source = muffins;
-      break;
-    default:
-      source = pancake;
-      break;
+  let hasImage = true;
+  let recipeImage;
+  try {
+    const images = require.context('../Content/Recipe Images', true);
+    recipeImage = images(`./${recipe.id}.jpg`);
+  } catch (e) {
+    hasImage = false;
   }
+
   // const images = require.context('../Content/Recipe Images', true);
   // const source = images(`./${recipe.id}.jpg`);
 
@@ -102,7 +91,9 @@ export default function RecipePreview(props) {
 
   return (
     <StyledRecipePreview>
-      <RecipeImage><StyledImage src={source} alt={recipe.id} /></RecipeImage>
+      {hasImage
+      && <RecipeImage><StyledImage src={recipeImage} alt={recipe.id} /></RecipeImage>
+      }
       <RecipeInfo>
         <RecipeTitle>
           <RecipeLink to={`/Recipe/${recipe.id}`}>

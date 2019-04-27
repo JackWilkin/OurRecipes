@@ -33,11 +33,11 @@ const FeaturedRecipe = styled.div`
 
 function Home({ context }) {
   const { recipes } = context;
-  const displayRecipes = recipes.length;
+  const displayRecipes = recipes.length > 0;
   return (
     <HomePage>
       <Header>
-        <Input placeholder="Search Recipes" />
+        {/* <Input placeholder="Search Recipes" /> */}
       </Header>
       {displayRecipes
       && (
