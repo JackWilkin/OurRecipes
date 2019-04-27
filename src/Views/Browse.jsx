@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 // import { Input } from 'semantic-ui-react';
 // import icon from '../Content/Images/pasta.png';
 // import { darkBlue } from '../Styles/constants';
 import RecipePreview from '../Components/RecipePreview';
-import MockData from '../tests/MockData';
 
 const BrowsePage = styled.main`
   display: flex;
@@ -61,15 +60,15 @@ const ItemTitle = styled.h2`
   padding: 1rem;
 `;
 
-function Browse() {
-  const allRecipes = MockData.recipes;
+function Browse({ context }) {
+  const allRecipes = context.recipes;
 
-  const recipeList = allRecipes.map(recipe => (
+  const recipeList = allRecipes.length ? allRecipes.map(recipe => (
     <RecipeItem>
       <ItemTitle>{recipe.title}</ItemTitle>
       <RecipePreview recipe={recipe} />
     </RecipeItem>
-  ));
+  )) : '';
   return (
     <BrowsePage>
       <Header>

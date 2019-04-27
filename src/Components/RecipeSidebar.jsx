@@ -131,16 +131,16 @@ const OvenHeatDisplay = styled.span`
 `;
 
 export default function RecipeSidebar() {
-  const recipe = useContext(RecipeContext);
-  const hasAppliances = !(recipe.appliances === undefined || recipe.appliances.length === 0);
-  const hasOvenHeat = !(recipe.ovenHeat === undefined);
-  const hasTemperature = !(recipe.isCelsius === undefined);
+  const { recipeAppliances, recipeOvenHeat, recipeIsCelsius } = useContext(RecipeContext);
+  const hasAppliances = !(recipeAppliances === undefined || recipeAppliances.length === 0);
+  const hasOvenHeat = !(recipeOvenHeat === undefined);
+  const hasTemperature = !(recipeIsCelsius === undefined);
   let appliances;
   let celsius;
   let fahrenheit;
 
   if (hasAppliances) {
-    appliances = recipe.appliances.map(
+    appliances = recipeAppliances.map(
       appliance => <Appliance key={appliance.id}>{appliance.name}</Appliance>,
     );
   }
@@ -149,16 +149,16 @@ export default function RecipeSidebar() {
     fahrenheit = 'Fahrenheit';
     celsius = 'Celsius';
   }
-  if (recipe.isCelsius) {
-    celsius = hasOvenHeat ? recipe.ovenHeat : 'Celsius';
-    fahrenheit = hasOvenHeat ? convertTemperature(recipe.ovenHeat, true) : 'Fahrenheit';
+  if (recipeIsCelsius) {
+    celsius = hasOvenHeat ? recipeOvenHeat : 'Celsius';
+    fahrenheit = hasOvenHeat ? convertTemperature(recipeOvenHeat, true) : 'Fahrenheit';
   } else {
-    fahrenheit = hasOvenHeat ? recipe.ovenHeat : 'Fahrenheit';
-    celsius = hasOvenHeat ? convertTemperature(recipe.ovenHeat, false) : 'Celsius';
+    fahrenheit = hasOvenHeat ? recipeOvenHeat : 'Fahrenheit';
+    celsius = hasOvenHeat ? convertTemperature(recipeOvenHeat, false) : 'Celsius';
   }
 
-  const [isCelsius, setisCelsius] = React.useState(recipe.isCelsius);
-  const [ovenHeat, setOvenHeat] = React.useState(recipe.ovenHeat);
+  const [isCelsius, setisCelsius] = React.useState(recipeIsCelsius);
+  const [ovenHeat, setOvenHeat] = React.useState(recipeOvenHeat);
   const [isToolsOpen, setIsToolsOpen] = React.useState(false);
 
   if (ovenHeat === undefined) {

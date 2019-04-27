@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-// import { restdb } from '../RecipeAPI/RestDB.js';
 import RecipeSidebar from '../Components/RecipeSidebar';
 import RecipeIngredients from '../Components/RecipeIngredients';
 import RecipeContext from '../Context/RecipeContext';
@@ -9,6 +8,7 @@ import { onMobile } from '../Styles/constants';
 import useRecipeData from '../Hooks/useRecipeData';
 
 const titleFontSize = '4rem';
+const mobileFontSize = '3rem';
 
 const RecipePage = styled.div`
     display: flex;
@@ -17,13 +17,29 @@ const RecipePage = styled.div`
     margin: auto;
 `;
 
-const RecipeTitle = styled.div`
+const RecipeTitle = styled.h1`
     width: 100%;
-    height: 6rem;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: ${titleFontSize};
+    margin-bottom: 0;
+    text-align: center;
+
+    ${onMobile} {
+      font-size: ${mobileFontSize};
+    }
+`;
+
+const RecipeSubTitle = styled.h2`
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 1rem;
+
+    ${onMobile} {
+      font-size: 1rem;
+    }
 `;
 
 const RecipeInfo = styled.div`
@@ -59,18 +75,38 @@ const StyledImage = styled.img`
     width: 100%;
 `;
 
+// const StyledImage = styled.div`
+//     ${props => (props.id ? `background-image: url('src/Content/Recipe Images/${props.id}.jpg')` : 'display: none')};
+//     height: auto;
+//     width: 100%;
+// `;
+
 function Recipe(props) {
   const recipeId = props.match.params.id;
   const context = useRecipeData(recipeId);
   const {
-    title, id, instructions,
+    title, id, instructions, subTitle,
   } = context;
+
+  let hasImage = true;
+  let recipeImage;
+  try {
+    const images = require.context('../Content/Recipe Images', true);
+    recipeImage = images(`./${recipeId}.jpg`);
+  } catch (e) {
+    hasImage = false;
+  }
 
   return (
     <RecipePage>
       <RecipeContext.Provider value={context}>
         <RecipeTitle>{title}</RecipeTitle>
-        <StyledImage src={RecipeImage} alt={id} />
+        {subTitle
+        && <RecipeSubTitle>{`"${subTitle}"`}</RecipeSubTitle>
+        }
+        {hasImage
+        && <StyledImage src={recipeImage} alt={id} />
+        }
         <RecipeInfo>
           <RecipeContent>
             <RecipeContentHeader>Ingredients</RecipeContentHeader>

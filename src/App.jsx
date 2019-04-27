@@ -6,6 +6,7 @@ import Home from './Views/Home';
 import Browse from './Views/Browse';
 import Recipe from './Views/Recipe';
 import { darkBlue } from './Styles/constants';
+import useAllRecipes from './Hooks/useAllRecipes';
 
 const Navbar = styled.div`
   align-items: center;
@@ -36,6 +37,19 @@ const NavbarLink = styled(Link)`
 `;
 
 export default function App() {
+  const context = useAllRecipes();
+
+  const recipes = context.recipes.map((recipe) => {
+    const { recipeIngredients } = context;
+    if (recipeIngredients && recipeIngredients.length) {
+      const ingredients = recipeIngredients[recipe.id];
+      const fullRecipe = { ...recipe, ingredients };
+      return fullRecipe;
+    }
+    return recipe;
+  });
+
+  const browseContext = { recipes };
   return (
     <Router>
       <Navbar>
@@ -43,20 +57,17 @@ export default function App() {
         <NavbarLink to="/Browse">
           Browse
         </NavbarLink>
-        <NavbarLink>
+        {/* <NavbarLink>
           About
-        </NavbarLink>
-        <NavbarLink to="/Recipe/1">
-          Recipe Test
-        </NavbarLink>
+        </NavbarLink> */}
         <NavbarLink to="/">
           Home
         </NavbarLink>
       </Navbar>
 
       <Route path="/Recipe/:id" component={Recipe} />
-      <Route exact path="/" component={Home} />
-      <Route path="/Browse" component={Browse} />
+      <Route exact path="/" component={() => <Home context={browseContext} />} />
+      <Route path="/Browse" component={() => <Browse context={browseContext} />} />
     </Router>
   );
 }

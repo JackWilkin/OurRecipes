@@ -27,30 +27,47 @@ function formatRecipeData(recipe) {
 }
 
 export default function useRecipeData(recipeId) {
-  const { recipe } = MockData;
-  const {
-    id,
-    title,
-    subTitle,
-    instructions,
-    ingredients,
-    ovenHeat,
-    servings,
-    appliances,
-    image,
-  } = formatRecipeData(recipe);
-  const [scaler, setScaler] = React.useState(recipe.scaler ? recipe.scaler : 1);
-  const [isCelsius, setIsCelsius] = React.useState(recipe.isCelsius);
+  // const { recipe } = MockData;
+  // const {
+  //   id,
+  //   title,
+  //   subTitle,
+  //   instructions,
+  //   ingredients,
+  //   ovenHeat,
+  //   servings,
+  //   appliances,
+  //   image,
+  // } = formatRecipeData(recipe);
+  const [id, setId] = React.useState();
+  const [title, setTitle] = React.useState();
+  const [subTitle, setSubTitle] = React.useState('');
+  const [instructions, setInstructions] = React.useState('');
+  const [ingredients, setIngredients] = React.useState([]);
+  const [ovenHeat, setOvenHeat] = React.useState(0);
+  const [servings, setServings] = React.useState('');
+  const [appliances, setAppliances] = React.useState([]);
+  const [scaler, setScaler] = React.useState(1);
+  const [isCelsius, setIsCelsius] = React.useState(false);
   const availableUnits = getAvailableUnits();
 
   React.useEffect(() => {
     (async () => {
       const client = new RecipeClient();
       const fetchRecipe = client.getRecipe({ recipeId });
-      console.log(await fetchRecipe);
+      const recipe = await fetchRecipe;
+
+      setId(recipe.id);
+      setTitle(recipe.title);
+      setSubTitle(recipe.subTitle);
+      setInstructions(recipe.instructions);
+      setIngredients(recipe.ingredients);
+      setOvenHeat(recipe.ovenHeat);
+      setServings(recipe.servings);
+      setAppliances(recipe.appliances);
+      setIsCelsius(recipe.isCelsius);
     })();
   }, []);
-
 
   return {
     scaler,
@@ -66,6 +83,5 @@ export default function useRecipeData(recipeId) {
     ovenHeat,
     servings,
     appliances,
-    image,
   };
 }

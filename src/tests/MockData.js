@@ -63,8 +63,8 @@ const INGREDIENTS = [SALT, PARMESAN, PASTA, BACON, EGGS];
 const RECIPE_FULL = {
   id: 2,
   scaler: 2,
-  title: 'Full Recipe',
-  subTitle: 'Mock Subtitle',
+  title: 'Pasta Carbonara',
+  subTitle: 'a 15 minute favorite',
   isCelsius: false,
   ovenHeat: 350,
   servings: 4,

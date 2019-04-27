@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { darkBlue } from '../Styles/constants';
 import pasta from '../Content/Images/pasta.png';
+import dumplings from '../Content/Recipe Images/17.jpg';
 import pancake from '../Content/Images/pancake.jpeg';
-import cake from '../Content/Images/chocolate-cake.png';
+import muffins from '../Content/Recipe Images/14.JPG';
 import { createIngredientDisplay } from '../utils';
 
 const StyledRecipePreview = styled.div`
@@ -27,18 +29,24 @@ const RecipeInfo = styled.div`
     flex-direction: column;
     flex-grow: 1;
     min-width: 10rem;
+    max-height: 15rem;
 `;
 
 const RecipeTitle = styled.div`
-    align-items: center;
-    background-color: ${darkBlue};
-    color: white;
-    display: flex;
-    font-size: 1.5rem;
-    font-weight: bold;
-    min-height: 3rem;
-    padding-left: 0.75rem;
-    width: 100%;
+  background-color: #2E3E55;
+  display: flex;
+  font-size: 1.5rem;
+  font-weight: bold;
+`;
+
+const RecipeLink = styled(Link)`
+  color: white;
+  padding: 1rem;
+
+  &:hover {
+    background-color: white;
+    color: ${darkBlue};
+  }
 `;
 
 
@@ -46,8 +54,19 @@ const RecipeServings = styled.div`
     padding: 0.5rem;
 `;
 
-const RecipeIngredient = styled.div`
+const RecipeIngredient = styled.span`
     padding-left: 0.5rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%;
+`;
+
+const RecipeIngredients = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    overflow: auto;
 `;
 
 export default function RecipePreview(props) {
@@ -56,16 +75,21 @@ export default function RecipePreview(props) {
   let source;
 
   switch (recipe.id) {
-    case 0:
-      source = pancake;
-      break;
-    case 1:
-      source = cake;
-      break;
-    default:
+    case 15:
       source = pasta;
       break;
+    case 17:
+      source = dumplings;
+      break;
+    case 14:
+      source = muffins;
+      break;
+    default:
+      source = pancake;
+      break;
   }
+  // const images = require.context('../Content/Recipe Images', true);
+  // const source = images(`./${recipe.id}.jpg`);
 
   let ingredients;
   if (recipe.ingredients.length > 0) {
@@ -80,14 +104,20 @@ export default function RecipePreview(props) {
     <StyledRecipePreview>
       <RecipeImage><StyledImage src={source} alt={recipe.id} /></RecipeImage>
       <RecipeInfo>
-        <RecipeTitle>{recipe.title}</RecipeTitle>
+        <RecipeTitle>
+          <RecipeLink to={`/Recipe/${recipe.id}`}>
+            {recipe.title}
+          </RecipeLink>
+        </RecipeTitle>
         {recipe.servings && (
         <RecipeServings>
           { `Servings: ${recipe.servings}`}
         </RecipeServings>
         )
         }
-        {ingredients}
+        <RecipeIngredients>
+          {ingredients}
+        </RecipeIngredients>
       </RecipeInfo>
     </StyledRecipePreview>
   );

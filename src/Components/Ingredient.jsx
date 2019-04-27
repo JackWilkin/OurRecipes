@@ -156,7 +156,7 @@ function Ingredient(props) {
       ),
     };
   }
-  
+
   return (
     <IngredientTool>
       <Quantity>{ingredientDisplayInfo.quantityDisplay}</Quantity>
