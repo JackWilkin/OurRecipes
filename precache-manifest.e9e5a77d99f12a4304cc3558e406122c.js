@@ -1,10 +1,10 @@
 self.__precacheManifest = [
   {
-    "revision": "8e3c7f5520f5ae906c6cf6d7f3ddcd19",
-    "url": "/OurRecipes/static/media/icons.8e3c7f55.eot"
+    "revision": "701ae6abd4719e9c2ada3535a497b341",
+    "url": "/OurRecipes/static/media/outline-icons.701ae6ab.eot"
   },
   {
-    "revision": "0123618a7d189ec81bb5",
+    "revision": "f49fa3454282542d5fb1",
     "url": "/OurRecipes/static/css/main.e95ebfe4.chunk.css"
   },
   {
@@ -12,24 +12,28 @@ self.__precacheManifest = [
     "url": "/OurRecipes/static/js/runtime~main.78590181.js"
   },
   {
-    "revision": "a1a749e89f578a49306ec2b055c073da",
-    "url": "/OurRecipes/static/media/brand-icons.a1a749e8.svg"
+    "revision": "15b68908267fe02b08597145b6ab5282",
+    "url": "/OurRecipes/static/media/15.15b68908.jpg"
   },
   {
-    "revision": "43567a99cf2acfab73c5",
-    "url": "/OurRecipes/static/js/2.c878d484.chunk.js"
+    "revision": "34d6d67b200de87dc2c9",
+    "url": "/OurRecipes/static/js/2.80237646.chunk.js"
   },
   {
     "revision": "51723af10364e2bb86880ee3ae6a710c",
     "url": "/OurRecipes/static/media/pasta.51723af1.png"
   },
   {
-    "revision": "e4b40f31baf6e47485ab65953be05615",
-    "url": "/OurRecipes/static/media/pancake.e4b40f31.jpeg"
+    "revision": "f5a871d9de537a91924b30c2056572a4",
+    "url": "/OurRecipes/static/media/17.f5a871d9.jpg"
   },
   {
-    "revision": "52f6c15ea7bd638397a97eece415b9a8",
-    "url": "/OurRecipes/static/media/chocolate-cake.52f6c15e.png"
+    "revision": "d5f5cd523c8a6958c29a74a21deb2b9f",
+    "url": "/OurRecipes/static/media/14.d5f5cd52.JPG"
+  },
+  {
+    "revision": "e4b40f31baf6e47485ab65953be05615",
+    "url": "/OurRecipes/static/media/pancake.e4b40f31.jpeg"
   },
   {
     "revision": "ca95d0919eacfaea7b799bd562c60495",
@@ -52,16 +56,12 @@ self.__precacheManifest = [
     "url": "/OurRecipes/static/media/icons.b87b9ba5.ttf"
   },
   {
-    "revision": "0123618a7d189ec81bb5",
-    "url": "/OurRecipes/static/js/main.876cf7f7.chunk.js"
-  },
-  {
-    "revision": "701ae6abd4719e9c2ada3535a497b341",
-    "url": "/OurRecipes/static/media/outline-icons.701ae6ab.eot"
-  },
-  {
     "revision": "cd6c777f1945164224dee082abaea03a",
     "url": "/OurRecipes/static/media/outline-icons.cd6c777f.woff2"
+  },
+  {
+    "revision": "f49fa3454282542d5fb1",
+    "url": "/OurRecipes/static/js/main.8f58ae9b.chunk.js"
   },
   {
     "revision": "962a1bf31c081691065fe333d9fa8105",
@@ -72,12 +72,12 @@ self.__precacheManifest = [
     "url": "/OurRecipes/static/media/outline-icons.ef60a4f6.woff"
   },
   {
-    "revision": "ad97afd3337e8cda302d10ff5a4026b8",
-    "url": "/OurRecipes/static/media/outline-icons.ad97afd3.ttf"
-  },
-  {
     "revision": "82f60bd0b94a1ed68b1e6e309ce2e8c3",
     "url": "/OurRecipes/static/media/outline-icons.82f60bd0.svg"
+  },
+  {
+    "revision": "ad97afd3337e8cda302d10ff5a4026b8",
+    "url": "/OurRecipes/static/media/outline-icons.ad97afd3.ttf"
   },
   {
     "revision": "13db00b7a34fee4d819ab7f9838cc428",
@@ -96,11 +96,27 @@ self.__precacheManifest = [
     "url": "/OurRecipes/static/media/brand-icons.c5ebe0b3.ttf"
   },
   {
-    "revision": "43567a99cf2acfab73c5",
-    "url": "/OurRecipes/static/css/2.f5ce03ab.chunk.css"
+    "revision": "a1a749e89f578a49306ec2b055c073da",
+    "url": "/OurRecipes/static/media/brand-icons.a1a749e8.svg"
   },
   {
-    "revision": "43c376049c56223cf687070159949ea8",
+    "revision": "8e3c7f5520f5ae906c6cf6d7f3ddcd19",
+    "url": "/OurRecipes/static/media/icons.8e3c7f55.eot"
+  },
+  {
+    "revision": "958544065ce1beaf947442c073b16b10",
+    "url": "/OurRecipes/static/media/1.95854406.jpg"
+  },
+  {
+    "revision": "35f65d0cd46bf934e028070550113afc",
+    "url": "/OurRecipes/static/media/11.35f65d0c.jpg"
+  },
+  {
+    "revision": "34d6d67b200de87dc2c9",
+    "url": "/OurRecipes/static/css/2.180f0132.chunk.css"
+  },
+  {
+    "revision": "da60aaadbc6ee99b9df77bd3d4786fb4",
     "url": "/OurRecipes/index.html"
   }
 ];
