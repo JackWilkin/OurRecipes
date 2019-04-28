@@ -77,13 +77,10 @@ export default function RecipePreview(props) {
     hasImage = false;
   }
 
-  // const images = require.context('../Content/Recipe Images', true);
-  // const source = images(`./${recipe.id}.jpg`);
-
   let ingredients;
   if (recipe.ingredients.length > 0) {
     ingredients = recipe.ingredients.map(ingredient => (
-      <RecipeIngredient>
+      <RecipeIngredient key={ingredient.id}>
         {createIngredientDisplay({ ingredient, scaler: 1 }).ingredientString}
       </RecipeIngredient>
     ));

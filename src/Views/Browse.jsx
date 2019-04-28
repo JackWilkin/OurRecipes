@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 // import { Input } from 'semantic-ui-react';
 // import icon from '../Content/Images/pasta.png';
@@ -61,10 +61,10 @@ const ItemTitle = styled.h2`
 `;
 
 function Browse({ context }) {
-  const allRecipes = context.recipes;
+  const { recipes } = context;
 
-  const recipeList = allRecipes.length ? allRecipes.map(recipe => (
-    <RecipeItem>
+  const recipeList = recipes.length ? recipes.map(recipe => (
+    <RecipeItem key={recipe.id}>
       <ItemTitle>{recipe.title}</ItemTitle>
       <RecipePreview recipe={recipe} />
     </RecipeItem>

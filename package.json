@@ -34,7 +34,10 @@
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
-    "extends": "airbnb"
+    "extends": "airbnb",
+    "rules": {
+      "react/prop-types": 0
+    }
   },
   "browserslist": [
     ">0.2%",

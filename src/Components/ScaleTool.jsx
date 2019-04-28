@@ -86,9 +86,7 @@ export default function ScaleTool() {
         { hasServings
             && (
             <Servings>
-                {servings * scaler}
-                {' '}
-            Servings
+                {`${servings * scaler} Servings`}
             </Servings>
             )
         }

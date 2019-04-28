@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Input } from 'semantic-ui-react';
+// import { Input } from 'semantic-ui-react';
 import background from '../Content/Images/pasta.png';
 import RecipePreview from '../Components/RecipePreview';
 

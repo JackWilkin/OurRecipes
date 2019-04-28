@@ -85,11 +85,6 @@ const Appliance = styled.div`
     padding-bottom: 0.5rem;
 `;
 
-// const ApplianceDisplay = styled.span`
-//     font-weight: bold;
-//     padding-left: 0.25rem;
-// `;
-
 const TemperatureSwitch = styled(Checkbox)`
     background-color: ${props => (props.checked ? lightBlue : 'lightgrey')};
 

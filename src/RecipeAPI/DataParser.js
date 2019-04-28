@@ -24,15 +24,32 @@ export function ingredientParser(json) {
     [ingredient] = json;
   }
   const unitName = ingredient.Unit ? ingredient.Unit[0] : '';
-  let unit = {
-    scaler: null, name: unitName, plural: unitName, id: 1,
-  };
-  if (unitName === 'Self') {
-    unit = null;
+  let unit = null;
+
+  switch (unitName) {
+    case 'Cup':
+      unit = {
+        scaler: 1, name: unitName, plural: `${unitName}s`, id: 0,
+      };
+      break;
+    case 'tsp':
+      unit = {
+        scaler: 48, name: unitName, plural: unitName, id: 1,
+      };
+      break;
+    case 'Tbs':
+      unit = {
+        scaler: 16, name: unitName, plural: unitName, id: 2,
+      };
+      break;
+    case 'Self':
+    default:
+      unit = null;
+      break;
   }
 
   const hasUnit = !(unit === null);
-  const unitConvertable = false;
+  const unitConvertable = true;
   const {
     IngredientId: id, IngredientName: name, Quantity: quantity, RecipeId: recipeId,
   } = ingredient;
