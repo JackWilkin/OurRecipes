@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Input, Button } from 'semantic-ui-react';
-import { decimalToFraction } from '../utils';
 import {
   darkBlue, mediumBlue, lightBlue, darkBlueTint,
 } from '../Styles/constants';
@@ -75,9 +74,13 @@ const ScaleButtons = styled.div`
 export default function ScaleTool() {
   const { scaler, setScaler, servings } = useContext(RecipeContext);
 
-  const scalerDisplay = scaler ? decimalToFraction(scaler, 8) : 1;
-
   const hasServings = !(servings === undefined);
+  const [scalerDisplay, setScalerDisplay] = React.useState(scaler);
+
+  const scaleRecipe = (newScaler) => {
+    setScaler(newScaler);
+    setScalerDisplay(newScaler);
+  };
 
   return (
     <Scale>
@@ -93,11 +96,13 @@ export default function ScaleTool() {
       </ScaleHeader>
       <ScaleInput
         value={scalerDisplay}
+        onChange={e => scaleRecipe(e.target.value)}
+        type="text"
         action={(
           <ScaleButtons>
-            <ScaleButton onClick={() => setScaler(0.5)}>1/2</ScaleButton>
-            <ScaleButton onClick={() => setScaler(1)}>1</ScaleButton>
-            <ScaleButton onClick={() => setScaler(2)}>2</ScaleButton>
+            <ScaleButton onClick={() => scaleRecipe(0.5)}>1/2</ScaleButton>
+            <ScaleButton onClick={() => scaleRecipe(1)}>1</ScaleButton>
+            <ScaleButton onClick={() => scaleRecipe(2)}>2</ScaleButton>
           </ScaleButtons>
         )}
       />

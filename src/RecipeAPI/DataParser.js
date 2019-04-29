@@ -4,13 +4,13 @@ export function recipeParser(json) {
     [recipe] = json;
   }
   const {
-    IsCelsius: isCelcius,
+    IsCelsius: isCelsius,
     OvenHeat: ovenHeat, RecipeId: id, RecipeInstructions: instructions, RecipeTitle: title,
   } = recipe;
 
   const ingredients = [];
   return {
-    isCelcius, ovenHeat, id, instructions, title, ingredients,
+    isCelsius, ovenHeat, id, instructions, title, ingredients,
   };
 }
 

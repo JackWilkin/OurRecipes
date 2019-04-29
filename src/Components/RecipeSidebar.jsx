@@ -10,7 +10,6 @@ import Mixer from '../Content/Images/mixer-white.png';
 import {
   onMobile, darkBlue, mediumBlue, lightBlue,
 } from '../Styles/constants';
-import { convertTemperature } from '../utils';
 import RecipeContext from '../Context/RecipeContext';
 
 const TOOL_STYLES = `
@@ -126,13 +125,14 @@ const OvenHeatDisplay = styled.span`
 `;
 
 export default function RecipeSidebar() {
-  const { recipeAppliances, recipeOvenHeat, recipeIsCelsius } = useContext(RecipeContext);
+  const {
+    recipeAppliances, ovenHeat, isCelsius, setIsCelsius, celsius, fahrenheit,
+  } = useContext(RecipeContext);
+
   const hasAppliances = !(recipeAppliances === undefined || recipeAppliances.length === 0);
-  const hasOvenHeat = !(recipeOvenHeat === undefined);
-  const hasTemperature = !(recipeIsCelsius === undefined);
+  const hasOvenHeat = !(ovenHeat === 0);
+  const hasTemperature = hasOvenHeat; // !(isCelsius === undefined);
   let appliances;
-  let celsius;
-  let fahrenheit;
 
   if (hasAppliances) {
     appliances = recipeAppliances.map(
@@ -140,25 +140,7 @@ export default function RecipeSidebar() {
     );
   }
 
-  if (!hasTemperature) {
-    fahrenheit = 'Fahrenheit';
-    celsius = 'Celsius';
-  }
-  if (recipeIsCelsius) {
-    celsius = hasOvenHeat ? recipeOvenHeat : 'Celsius';
-    fahrenheit = hasOvenHeat ? convertTemperature(recipeOvenHeat, true) : 'Fahrenheit';
-  } else {
-    fahrenheit = hasOvenHeat ? recipeOvenHeat : 'Fahrenheit';
-    celsius = hasOvenHeat ? convertTemperature(recipeOvenHeat, false) : 'Celsius';
-  }
-
-  const [isCelsius, setisCelsius] = React.useState(recipeIsCelsius);
-  const [ovenHeat, setOvenHeat] = React.useState(recipeOvenHeat);
   const [isToolsOpen, setIsToolsOpen] = React.useState(false);
-
-  if (ovenHeat === undefined) {
-    setOvenHeat(isCelsius ? celsius : fahrenheit);
-  }
 
   return (
     <Sidebar>
@@ -176,25 +158,19 @@ export default function RecipeSidebar() {
               : <FAIconImage icon={faThermometerHalf} />}
 
             <OvenHeatDisplay>
-              {ovenHeat}
+              {isCelsius ? celsius : fahrenheit}
             </OvenHeatDisplay>
             <TemperatureSwitch
               radio
               label="C°"
               checked={isCelsius === true}
-              onChange={() => {
-                setisCelsius(!isCelsius);
-                setOvenHeat(celsius);
-              }}
+              onChange={() => setIsCelsius(!isCelsius)}
             />
             <TemperatureSwitch
               radio
               label="F°"
               checked={isCelsius === false}
-              onChange={() => {
-                setisCelsius(!isCelsius);
-                setOvenHeat(fahrenheit);
-              }}
+              onChange={() => setIsCelsius(!isCelsius)}
             />
           </OvenHeatTool>
         )}

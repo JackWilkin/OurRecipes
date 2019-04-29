@@ -108,21 +108,21 @@ export default function Unit(props) {
     }
   ));
 
-  if (ingredient.hasUnit && !ingredient.unitConvertable) {
-    panes[ingredient.unit.id] = {
-      menuItem: ingredient.unit.name,
-      render: () => (
-        <Tab.Pane
-          key={ingredient.unit.id}
-          onClick={toggleTab}
-          open={openTabs}
-          attached="top"
-        >
-          {ingredient.unit.name}
-        </Tab.Pane>
-      ),
-    };
-  }
+  // if (ingredient.hasUnit && !ingredient.unitConvertable) {
+  //   panes[ingredient.unit.id] = {
+  //     menuItem: ingredient.unit.name,
+  //     render: () => (
+  //       <Tab.Pane
+  //         key={ingredient.unit.id}
+  //         onClick={toggleTab}
+  //         open={openTabs}
+  //         attached="top"
+  //       >
+  //         {ingredient.unit.name}
+  //       </Tab.Pane>
+  //     ),
+  //   };
+  // }
 
   return (
     <StyledUnit

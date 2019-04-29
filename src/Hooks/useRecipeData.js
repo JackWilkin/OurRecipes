@@ -1,6 +1,7 @@
 import React from 'react';
 import MockData from '../tests/MockData';
 import RecipeClient from '../RecipeAPI/RecipeClient';
+import { convertTemperature } from '../utils';
 
 function createIngredient(ingredient) {
   const {
@@ -49,6 +50,8 @@ export default function useRecipeData(recipeId) {
   const [appliances, setAppliances] = React.useState([]);
   const [scaler, setScaler] = React.useState(1);
   const [isCelsius, setIsCelsius] = React.useState(false);
+  const [celsius, setCelsius] = React.useState('Celsius');
+  const [fahrenheit, setFahrenheit] = React.useState('Fahrenheit');
   const availableUnits = getAvailableUnits();
 
   React.useEffect(() => {
@@ -66,6 +69,12 @@ export default function useRecipeData(recipeId) {
       setServings(recipe.servings);
       setAppliances(recipe.appliances);
       setIsCelsius(recipe.isCelsius);
+
+      const hasOvenHeat = !(recipe.ovenHeat === 0);
+      if (hasOvenHeat) {
+        setCelsius(recipe.isCelsius ? recipe.ovenHeat : convertTemperature(recipe.ovenHeat, recipe.isCelsius));
+        setFahrenheit(recipe.isCelsius ? convertTemperature(recipe.ovenHeat, recipe.isCelsius) : recipe.ovenHeat);
+      }
     })();
   }, []);
 
@@ -74,6 +83,8 @@ export default function useRecipeData(recipeId) {
     setScaler,
     isCelsius,
     setIsCelsius,
+    celsius,
+    fahrenheit,
     id,
     title,
     subTitle,
