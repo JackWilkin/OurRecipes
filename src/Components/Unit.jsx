@@ -19,62 +19,59 @@ const convertableUnitStyles = `
 `;
 
 const StyledUnit = styled(Tab)`
-    ${props => (props.unitConvertable ? convertableUnitStyles : '')};
+    ${props => (props.unitConvertable ? convertableUnitStyles : '')}
+    border-right: 1px solid ${mediumBlue};
 
-    .menu {
+    .ui {
+      &.menu {
         max-height: ${props => (props.open ? '5rem' : '0')};
         transition: max-height 0.2s ease-out;
         padding: 0;
         ${props => (props.unitConvertable ? '' : 'display: none;')};
-    }
 
-    .ui.attached.menu {
-        min-height: 0;
-    }
-    .ui.tab.active, .ui.tab.open {
+        &.attached {
+          min-height: 0;
+
+          &.bottom .item.active {
+            border-radius: 0;
+          }
+        }
+
+        a.item {
+          ${props => (props.open ? 'display: flex' : 'display: none')};
+          border-right: 1px solid ${mediumBlue};
+
+          &.active {
+            background-color: ${lightBlue};
+            pointer-events: none;
+          }
+          
+          :hover {
+            background-color: ${HOVER_GREY};
+          }
+        }
+      }
+      &.tab.active {
         border-radius: 0;
         border-top: none;
-        border-left: 1px solid ${mediumBlue};
         border-bottom: none;
-        border-right: 1px solid ${mediumBlue};
+        border-left: none;
+        border-right: none;
         padding: 0.75rem;
         font-size: 1rem;
         margin: 0;
-        margin-left: -1px;
         transition: background-color 0.3s ease-out;
-    }
-
-    .ui.menu {
-      a.active.item {
-        background-color: ${lightBlue};
-        pointer-events: none;
-
-        :hover {
-          background-color: ${lightBlue};
-        }
+        background-color: rgba(0,0,0,0);
       }
 
-      a.item {
-        ${props => (props.open ? 'display: flex' : 'display: none')};
-        border-right: 1px solid ${mediumBlue};
-        
-        :hover {
-          background-color: ${HOVER_GREY};
-        }
-      }
-    }
-
-    .ui.attached+.ui.attached.menu:not(.top) {
+      &.attached+.ui.attached.menu:not(.top) {
         border-left: 1px solid ${mediumBlue};
+        ${props => (props.open ? `border-top: 1px solid ${mediumBlue};` : '')}
         border-bottom: none;
         border-right: none;
         border-radius: 0;
-        ${props => (props.open ? `border-top: 1px solid ${mediumBlue}` : '')};
+      }
     }
-
-    .ui.bottom.attached.menu>.item:first-child {
-      border-radius: 0;
-  }
 `;
 
 export default function Unit(props) {

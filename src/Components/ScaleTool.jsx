@@ -22,7 +22,6 @@ const Scale = styled.div`
 
 const ScaleHeader = styled.span`
     font-size: 1.1rem;
-    padding-top: 0.5rem;
     padding-bottom: 0.5rem;
 `;
 

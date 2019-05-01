@@ -9,6 +9,7 @@
     "@fortawesome/react-fontawesome": "^0.1.4",
     "axios": "^0.18.0",
     "eslint-config-airbnb": "^17.1.0",
+    "eslint": "^5.16.0",
     "gh-pages": "^2.0.1",
     "node-sass": "^4.11.0",
     "react": "^16.8.6",
@@ -20,9 +21,6 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.86.0",
     "styled-components": "^4.2.0"
-  },
-  "devDependencies": {
-    "eslint": "^5.16.0"
   },
   "scripts": {
     "start": "react-scripts start",
