@@ -51,12 +51,12 @@ export function ingredientParser(json) {
   const hasUnit = !(unit === null);
   const unitConvertable = true;
   const {
-    IngredientId: id, IngredientName: name, Quantity: quantity, RecipeId: recipeId,
+    IngredientId: id, IngredientName: name, Quantity: quantity, RecipeId: recipeId, notes,
   } = ingredient;
 
   const ingredients = [];
   return {
-    id, name, quantity, recipeId, ingredients, unit, hasUnit, unitConvertable,
+    id, name, quantity, recipeId, ingredients, unit, hasUnit, unitConvertable, notes,
   };
 }
 

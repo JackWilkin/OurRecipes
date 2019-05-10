@@ -1,11 +1,20 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { createIngredientDisplay } from '../utils';
-import { mediumBlue } from '../Styles/constants';
+import { mediumBlue, lightBlue, darkBlue } from '../Styles/constants';
 import RecipeContext from '../Context/RecipeContext';
 import Unit from './Unit';
 
 const IngredientTool = styled.div`
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid ${darkBlue};
+    border-right: 1px solid ${darkBlue};
+    border-bottom: 1px solid ${darkBlue};
+    margin-bottom: 1rem;
+`;
+
+const IngredientInfo = styled.div`
     display: flex;
     height: fit-content;
     border-top: 1px solid ${mediumBlue};
@@ -18,15 +27,38 @@ const Quantity = styled.span`
     padding: 0.5rem;
     font-size: 1rem;
     border-right: 1px solid ${mediumBlue};
+    background-color: #7080906e;
+    color: #777777;
+    font-weight: bold;
 `;
 
 const IngredientDisplay = styled.div`
+    ${props => (props.hasNotes ? 'cursor: pointer' : 'pointer-events: none')};
     flex-grow: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0.5rem;
     font-size: 1rem;
+    color: #2E3E55;
+    transition: background-color 0.3s ease-out;
+
+    &:hover {
+      background-color: ${lightBlue};
+      color: white;
+    }
+`;
+const IngredientNotes = styled.div`
+    border-top: 1px solid ${mediumBlue};
+    flex-grow: 1;
+    display: ${props => (props.showNotes ? 'flex' : 'none')};
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    font-size: 1rem;
+    color: #2E3E55;
+    background-color: #7080906e;
+    color: #777777;
 `;
 
 function Ingredient(props) {
@@ -35,6 +67,9 @@ function Ingredient(props) {
   const [currentQuantity, setCurrentQuantity] = React.useState(ingredient.quantity);
   const [currentUnit, setCurrentUnit] = React.useState(ingredient.unit);
   const [currentIngredient, setCurrentIngredient] = React.useState(ingredient.name);
+  const hasNotes = ingredient.notes !== undefined;
+  const [showNotes, setShowNotes] = React.useState(hasNotes);
+
   const viewIngredient = {
     quantity: currentQuantity,
     unit: currentUnit,
@@ -45,18 +80,21 @@ function Ingredient(props) {
 
   return (
     <IngredientTool>
-      <Quantity>{ingredientDisplayInfo.quantityDisplay}</Quantity>
-      {ingredient.hasUnit
-      && (
-      <Unit
-        setCurrentQuantity={setCurrentQuantity}
-        currentUnit={currentUnit}
-        setCurrentUnit={setCurrentUnit}
-        ingredient={ingredient}
-      />
-      )
-      }
-      <IngredientDisplay>{ingredientDisplayInfo.ingredientDisplay}</IngredientDisplay>
+      <IngredientInfo>
+        <Quantity>{ingredientDisplayInfo.quantityDisplay}</Quantity>
+        {ingredient.hasUnit && (
+          <Unit
+            setCurrentQuantity={setCurrentQuantity}
+            currentUnit={currentUnit}
+            setCurrentUnit={setCurrentUnit}
+            ingredient={ingredient}
+          />
+        )}
+        <IngredientDisplay hasNotes={hasNotes} onClick={() => setShowNotes(!showNotes)}>
+          {ingredientDisplayInfo.ingredientDisplay}
+        </IngredientDisplay>
+      </IngredientInfo>
+      <IngredientNotes showNotes={showNotes}>{ingredient.notes}</IngredientNotes>
     </IngredientTool>
   );
 }

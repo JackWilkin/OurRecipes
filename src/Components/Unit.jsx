@@ -4,16 +4,16 @@ import { Tab } from 'semantic-ui-react';
 import RecipeContext from '../Context/RecipeContext';
 import { convertUnit } from '../utils';
 // import { Link } from 'react-router-dom';
-import { mediumBlue, lightBlue } from '../Styles/constants';
+import { mediumBlue, lightBlue, darkBlue } from '../Styles/constants';
 // import { createIngredientDisplay } from '../utils';
 
-const HOVER_GREY = 'rgba(0, 0, 0, 0.09);';
 const convertableUnitStyles = `
   cursor: pointer;
 
   .ui.tab.active, .ui.tab.open {
     :hover {
-      background-color: ${HOVER_GREY};
+      background-color: ${darkBlue};
+      color: white;
     }
   }
 `;
@@ -47,7 +47,9 @@ const StyledUnit = styled(Tab)`
           }
           
           :hover {
-            background-color: ${HOVER_GREY};
+            background-color: ${darkBlue};
+            color: white;
+            border-radius: 0 !important;
           }
         }
       }
@@ -61,7 +63,10 @@ const StyledUnit = styled(Tab)`
         font-size: 1rem;
         margin: 0;
         transition: background-color 0.3s ease-out;
-        background-color: rgba(0,0,0,0);
+        color: ${darkBlue};
+        width: auto;
+        background-color: white;
+        font-weight: bold;
       }
 
       &.attached+.ui.attached.menu:not(.top) {
