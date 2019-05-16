@@ -1,4 +1,6 @@
-import { recipeListParser, recipeParser, ingredientListParser } from './DataParser';
+import {
+  recipeListParser, recipeParser, ingredientListParser, unitListParser,
+} from './DataParser';
 
 // https://llfrecipes-6c4b.restdb.io/rest/ingredient?q={}&h={%22$groupby%22:[%22RecipeId%22]}
 const API_URL = 'https://llfrecipes-6c4b.restdb.io/rest/';
@@ -65,6 +67,22 @@ class RecipeClient {
     }
     const json = await response.json();
     return recipeListParser(json);
+  }
+
+  // Get all convertable units in the database
+  async getConvertableUnits() {
+    const url = `${this.apiUrl}unit?q={"scaler":{"$not":0}}`;
+    const response = await fetch(url, {
+      method: 'get',
+      headers: {
+        'x-apikey': this.apikey,
+      },
+    });
+    if (response.status >= 400) {
+      throw Error(response.statusText);
+    }
+    const json = await response.json();
+    return unitListParser(json);
   }
 
   // Get a recipe by a given id TODO: get by title

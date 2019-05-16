@@ -14,10 +14,6 @@ export function recipeParser(json) {
   };
 }
 
-export function recipeListParser(jsonList) {
-  return jsonList.map(recipeParser);
-}
-
 export function ingredientParser(json) {
   let ingredient = json;
   if (Array.isArray(json)) {
@@ -60,6 +56,28 @@ export function ingredientParser(json) {
   };
 }
 
+export function unitParser(json) {
+  let unit = json;
+  if (Array.isArray(json)) {
+    [unit] = json;
+  }
+  const {
+    name, plural, scaler, unitId: id,
+  } = unit;
+
+  return {
+    name, plural, scaler, id,
+  };
+}
+
 export function ingredientListParser(jsonList) {
   return jsonList.map(ingredientParser);
+}
+
+export function recipeListParser(jsonList) {
+  return jsonList.map(recipeParser);
+}
+
+export function unitListParser(jsonList) {
+  return jsonList.map(unitParser);
 }

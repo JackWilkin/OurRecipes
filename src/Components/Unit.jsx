@@ -67,6 +67,12 @@ const StyledUnit = styled(Tab)`
         width: auto;
         background-color: white;
         font-weight: bold;
+
+        ${props => (props.open ? '' : `
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        display: flex;`)}
       }
 
       &.attached+.ui.attached.menu:not(.top) {

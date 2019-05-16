@@ -42,6 +42,7 @@ const IngredientDisplay = styled.div`
     font-size: 1rem;
     color: #2E3E55;
     transition: background-color 0.3s ease-out;
+    overflow: hidden;
 
     &:hover {
       background-color: ${lightBlue};
@@ -56,9 +57,9 @@ const IngredientNotes = styled.div`
     justify-content: center;
     padding: 0.5rem;
     font-size: 1rem;
-    color: #2E3E55;
     background-color: #7080906e;
     color: #777777;
+    font-weight: bold;
 `;
 
 function Ingredient(props) {
