@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Tab } from 'semantic-ui-react';
-import RecipeContext from '../Context/RecipeContext';
+import GlobalContext from '../Context/GlobalContext';
 import { convertUnit } from '../utils';
-// import { Link } from 'react-router-dom';
 import { mediumBlue, lightBlue, darkBlue } from '../Styles/constants';
+// import { Link } from 'react-router-dom';
 // import { createIngredientDisplay } from '../utils';
 
 const convertableUnitStyles = `
@@ -89,7 +89,7 @@ export default function Unit(props) {
   const {
     ingredient, setCurrentQuantity, setCurrentUnit, currentUnit,
   } = props;
-  const { availableUnits } = useContext(RecipeContext);
+  const { availableUnits } = useContext(GlobalContext);
   const [openTabs, setOpenTabs] = React.useState(false);
   const toggleTab = () => setOpenTabs(!openTabs);
 

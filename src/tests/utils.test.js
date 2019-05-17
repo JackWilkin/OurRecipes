@@ -1,4 +1,3 @@
-// import { describe } from 'react';
 import MockData from './MockData';
 import {
   decimalToFraction, convertTemperature, convertUnit, createIngredientDisplay,

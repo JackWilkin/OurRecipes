@@ -15,13 +15,11 @@ export default function useRecipeData(recipeId) {
   const [isCelsius, setIsCelsius] = React.useState(false);
   const [celsius, setCelsius] = React.useState('Celsius');
   const [fahrenheit, setFahrenheit] = React.useState('Fahrenheit');
-  const [availableUnits, setAvailableUnits] = React.useState([]);
 
   React.useEffect(() => {
     (async () => {
       const client = new RecipeClient();
       const fetchRecipe = client.getRecipe({ recipeId });
-      const fetchAvailableUnits = client.getConvertableUnits();
       const recipe = await fetchRecipe;
 
       setId(recipe.id);
@@ -33,7 +31,6 @@ export default function useRecipeData(recipeId) {
       setServings(recipe.servings);
       setAppliances(recipe.appliances);
       setIsCelsius(recipe.isCelsius);
-      setAvailableUnits(await fetchAvailableUnits);
 
       const hasOvenHeat = !(recipe.ovenHeat === 0);
       if (hasOvenHeat) {
@@ -57,7 +54,6 @@ export default function useRecipeData(recipeId) {
     title,
     subTitle,
     instructions,
-    availableUnits,
     ingredients,
     ovenHeat,
     servings,

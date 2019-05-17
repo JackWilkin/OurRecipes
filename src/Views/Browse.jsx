@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 // import { Input } from 'semantic-ui-react';
 // import icon from '../Content/Images/pasta.png';
 // import { darkBlue } from '../Styles/constants';
 import RecipePreview from '../Components/RecipePreview';
+import GlobalContext from '../Context/GlobalContext';
 
 const BrowsePage = styled.main`
   display: flex;
@@ -60,8 +61,8 @@ const ItemTitle = styled.h2`
   padding: 1rem;
 `;
 
-function Browse({ context }) {
-  const { recipes } = context;
+function Browse() {
+  const { recipes } = useContext(GlobalContext);
 
   const recipeList = recipes.length ? recipes.map(recipe => (
     <RecipeItem key={recipe.id}>
@@ -72,14 +73,11 @@ function Browse({ context }) {
   return (
     <BrowsePage>
       <Header>
-        <PageTitle>
-        Browse Our Recipes
-        </PageTitle>
+        <PageTitle>Browse Our Recipes</PageTitle>
       </Header>
       <RecipeList>
         {recipeList}
       </RecipeList>
-
     </BrowsePage>
   );
 }

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 // import { Input } from 'semantic-ui-react';
 import background from '../Content/Images/pasta.png';
 import RecipePreview from '../Components/RecipePreview';
+import GlobalContext from '../Context/GlobalContext';
 
 const HomePage = styled.div`
   display: flex;
@@ -31,8 +32,8 @@ const FeaturedRecipe = styled.div`
   margin-right: auto;
 `;
 
-function Home({ context }) {
-  const { recipes } = context;
+function Home() {
+  const { recipes } = useContext(GlobalContext);
   const displayRecipes = recipes.length > 0;
   return (
     <HomePage>
