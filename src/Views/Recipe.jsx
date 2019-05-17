@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import RecipeSidebar from '../Components/RecipeSidebar';
 import RecipeIngredients from '../Components/RecipeIngredients';
 import RecipeContext from '../Context/RecipeContext';
 import { onMobile } from '../Styles/constants';
 import useRecipeData from '../Hooks/useRecipeData';
+import GlobalContext from '../Context/GlobalContext';
+import { convertTemperature } from '../utils';
 
 const titleFontSize = '4rem';
 const mobileFontSize = '3rem';
@@ -73,27 +75,72 @@ const StyledImage = styled.img`
     height: auto;
     width: 100%;
 `;
-
-function Recipe(props) {
-  const { match: { params } } = props;
-  const recipeId = params.id;
-  const context = useRecipeData(recipeId);
-  const {
-    title, id, instructions, subTitle,
-  } = context;
-
+/**
+ * Get recipe image for the given recipe
+ * @param {int} recipeId
+ * @returns {bool} hasImage -> whether this recipe has an image
+ * @returns {String} recipeImage -> src of this recipe image or null
+ */
+function getRecipeImage(recipeId) {
   let hasImage = true;
-  let recipeImage;
+  let recipeImage = null;
   try {
     const images = require.context('../Content/Recipe Images', true);
     recipeImage = images(`./${recipeId}.jpg`);
   } catch (e) {
     hasImage = false;
   }
+  return { hasImage, recipeImage };
+}
+
+/**
+ * Display values for temp tool
+ * @param {int} ovenHeat
+ * @param {bool} isCelsius
+ * @returns {String} celsius
+ * @returns {String} fahrenheit
+ */
+function ovenHeatDisplay({ ovenHeat, isCelsius }) {
+  const hasOvenHeat = ovenHeat > 0;
+  let celsius = 'Celsius';
+  let fahrenheit = 'Fahrenheit';
+  if (hasOvenHeat) {
+    const convertedTemp = convertTemperature(ovenHeat, isCelsius);
+    const celsiusDisplay = isCelsius ? ovenHeat : convertedTemp;
+    const fahrenheitDisplay = isCelsius ? convertedTemp : ovenHeat;
+    celsius = celsiusDisplay;
+    fahrenheit = fahrenheitDisplay;
+  }
+  return { celsius, fahrenheit };
+}
+
+function Recipe(props) {
+  const {
+    match: {
+      params: { id: recipeId },
+    },
+  } = props;
+  const recipeContext = useRecipeData(recipeId);
+  const { recipes } = useContext(GlobalContext);
+  const context = recipes.length > 1
+    ? recipes.find(recipe => recipe.id.toString() === recipeId) : recipeContext;
+
+  const {
+    title, id, instructions, subTitle, ovenHeat, isCelsius,
+  } = context;
+
+  const [scaler, setScaler] = React.useState(1);
+  const [inCelsius, setInCelsius] = React.useState(isCelsius);
+  const { celsius, fahrenheit } = ovenHeatDisplay({ ovenHeat, isCelsius });
+  const { hasImage, recipeImage } = getRecipeImage(recipeId);
+
+  const recipePageContext = {
+    ...context, scaler, setScaler, celsius, fahrenheit, setInCelsius, inCelsius,
+  };
 
   return (
     <RecipePage>
-      <RecipeContext.Provider value={context}>
+      <RecipeContext.Provider value={recipePageContext}>
         <RecipeTitle>{title}</RecipeTitle>
         {subTitle
         && <RecipeSubTitle>{`"${subTitle}"`}</RecipeSubTitle>

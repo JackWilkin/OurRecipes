@@ -92,6 +92,7 @@ export default function Unit(props) {
   const { availableUnits } = useContext(GlobalContext);
   const [openTabs, setOpenTabs] = React.useState(false);
   const toggleTab = () => setOpenTabs(!openTabs);
+  const unitConvertable = true;
 
   const handleTabChange = (e, { activeIndex }) => {
     const newUnit = availableUnits[activeIndex];
@@ -136,9 +137,9 @@ export default function Unit(props) {
     <StyledUnit
       defaultActiveIndex={currentUnit ? currentUnit.id : 0}
       onTabChange={handleTabChange}
-      unitConvertable={ingredient.unitConvertable}
+      unitConvertable={unitConvertable}
       menu={{ attached: 'bottom' }}
-      open={ingredient.unitConvertable && openTabs}
+      open={unitConvertable && openTabs}
       panes={panes}
     />
   );

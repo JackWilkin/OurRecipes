@@ -11,10 +11,7 @@ export default function useRecipeData(recipeId) {
   const [ovenHeat, setOvenHeat] = React.useState(0);
   const [servings, setServings] = React.useState('');
   const [appliances, setAppliances] = React.useState([]);
-  const [scaler, setScaler] = React.useState(1);
   const [isCelsius, setIsCelsius] = React.useState(false);
-  const [celsius, setCelsius] = React.useState('Celsius');
-  const [fahrenheit, setFahrenheit] = React.useState('Fahrenheit');
 
   React.useEffect(() => {
     (async () => {
@@ -31,25 +28,11 @@ export default function useRecipeData(recipeId) {
       setServings(recipe.servings);
       setAppliances(recipe.appliances);
       setIsCelsius(recipe.isCelsius);
-
-      const hasOvenHeat = !(recipe.ovenHeat === 0);
-      if (hasOvenHeat) {
-        const convertedTemp = convertTemperature(recipe.ovenHeat, recipe.isCelsius);
-        const celsiusDisplay = recipe.isCelsius ? recipe.ovenHeat : convertedTemp;
-        const fahrenheitDisplay = recipe.isCelsius ? convertedTemp : recipe.ovenHeat;
-        setCelsius(celsiusDisplay);
-        setFahrenheit(fahrenheitDisplay);
-      }
     })();
   }, []);
 
   return {
-    scaler,
-    setScaler,
     isCelsius,
-    setIsCelsius,
-    celsius,
-    fahrenheit,
     id,
     title,
     subTitle,

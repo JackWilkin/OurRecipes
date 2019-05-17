@@ -1,14 +1,17 @@
 export function recipeParser(json) {
   let recipe = json;
+  const ingredients = [];
   if (Array.isArray(json)) {
     [recipe] = json;
   }
   const {
     IsCelsius: isCelsius,
-    OvenHeat: ovenHeat, RecipeId: id, RecipeInstructions: instructions, RecipeTitle: title,
+    OvenHeat: ovenHeat,
+    RecipeId: id,
+    RecipeInstructions: instructions,
+    RecipeTitle: title,
   } = recipe;
 
-  const ingredients = [];
   return {
     isCelsius, ovenHeat, id, instructions, title, ingredients,
   };
@@ -44,15 +47,16 @@ export function ingredientParser(json) {
       break;
   }
 
-  const hasUnit = !(unit === null);
-  const unitConvertable = true;
   const {
-    IngredientId: id, IngredientName: name, Quantity: quantity, RecipeId: recipeId, notes,
+    IngredientId: id,
+    IngredientName: name,
+    Quantity: quantity,
+    RecipeId: recipeId,
+    notes,
   } = ingredient;
 
-  const ingredients = [];
   return {
-    id, name, quantity, recipeId, ingredients, unit, hasUnit, unitConvertable, notes,
+    id, name, quantity, recipeId, unit, notes,
   };
 }
 

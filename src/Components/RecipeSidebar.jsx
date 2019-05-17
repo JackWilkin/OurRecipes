@@ -126,7 +126,7 @@ const OvenHeatDisplay = styled.span`
 
 export default function RecipeSidebar() {
   const {
-    recipeAppliances, ovenHeat, isCelsius, setIsCelsius, celsius, fahrenheit,
+    recipeAppliances, ovenHeat, setInCelsius, inCelsius, celsius, fahrenheit,
   } = useContext(RecipeContext);
 
   const hasAppliances = !(recipeAppliances === undefined || recipeAppliances.length === 0);
@@ -158,19 +158,19 @@ export default function RecipeSidebar() {
               : <FAIconImage icon={faThermometerHalf} />}
 
             <OvenHeatDisplay>
-              {isCelsius ? celsius : fahrenheit}
+              {inCelsius ? celsius : fahrenheit}
             </OvenHeatDisplay>
             <TemperatureSwitch
               radio
               label="C°"
-              checked={isCelsius === true}
-              onChange={() => setIsCelsius(!isCelsius)}
+              checked={inCelsius === true}
+              onChange={() => setInCelsius(!inCelsius)}
             />
             <TemperatureSwitch
               radio
               label="F°"
-              checked={isCelsius === false}
-              onChange={() => setIsCelsius(!isCelsius)}
+              checked={inCelsius === false}
+              onChange={() => setInCelsius(!inCelsius)}
             />
           </OvenHeatTool>
         )}
