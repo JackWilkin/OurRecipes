@@ -6,7 +6,7 @@ import Home from './Views/Home';
 import Browse from './Views/Browse';
 import Recipe from './Views/Recipe';
 import { darkBlue } from './Styles/constants';
-import useAllRecipes from './Hooks/useAllRecipes';
+import useSiteData from './Hooks/useSiteData';
 
 const Navbar = styled.div`
   align-items: center;
@@ -37,10 +37,10 @@ const NavbarLink = styled(Link)`
 `;
 
 export default function App() {
-  const context = useAllRecipes();
+  const context = useSiteData();
+  const { recipes, recipeIngredients } = context;
 
-  const recipes = context.recipes.map((recipe) => {
-    const { recipeIngredients } = context;
+  const browseRecipes = recipes.map((recipe) => {
     if (recipeIngredients && recipeIngredients.length) {
       const ingredients = recipeIngredients[recipe.id];
       const fullRecipe = { ...recipe, ingredients };
@@ -49,7 +49,7 @@ export default function App() {
     return recipe;
   });
 
-  const browseContext = { recipes };
+  const browseContext = { recipes: browseRecipes };
   return (
     <Router>
       <Navbar>

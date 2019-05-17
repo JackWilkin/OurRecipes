@@ -67,14 +67,14 @@ function Ingredient(props) {
   const { scaler } = useContext(RecipeContext);
   const [currentQuantity, setCurrentQuantity] = React.useState(ingredient.quantity);
   const [currentUnit, setCurrentUnit] = React.useState(ingredient.unit);
-  const [currentIngredient, setCurrentIngredient] = React.useState(ingredient.name);
+  // const [currentIngredient, setCurrentIngredient] = React.useState(ingredient.name);
   const hasNotes = ingredient.notes !== undefined;
   const [showNotes, setShowNotes] = React.useState(hasNotes);
 
   const viewIngredient = {
     quantity: currentQuantity,
     unit: currentUnit,
-    name: currentIngredient,
+    name: ingredient.name,
   };
 
   const ingredientDisplayInfo = createIngredientDisplay({ ingredient: viewIngredient, scaler });

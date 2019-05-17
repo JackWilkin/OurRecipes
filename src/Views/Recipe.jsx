@@ -75,7 +75,8 @@ const StyledImage = styled.img`
 `;
 
 function Recipe(props) {
-  const recipeId = props.match.params.id;
+  const { match: { params } } = props;
+  const recipeId = params.id;
   const context = useRecipeData(recipeId);
   const {
     title, id, instructions, subTitle,
