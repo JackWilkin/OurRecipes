@@ -69,12 +69,10 @@ const ScaleButtons = styled.div`
     display: flex;
 `;
 
-
 export default function ScaleTool() {
   const { scaler, setScaler, servings } = useContext(RecipeContext);
-
-  const hasServings = !(servings === undefined);
   const [scalerDisplay, setScalerDisplay] = React.useState(scaler);
+  const hasServings = !(servings === undefined);
 
   const scaleRecipe = (newScaler) => {
     setScaler(newScaler);
@@ -85,13 +83,7 @@ export default function ScaleTool() {
     <Scale>
       <ScaleHeader>
         Scale recipe
-        { hasServings
-            && (
-            <Servings>
-                {`${servings * scaler} Servings`}
-            </Servings>
-            )
-        }
+        {hasServings && <Servings>{`${servings * scaler} Servings`}</Servings>}
       </ScaleHeader>
       <ScaleInput
         value={scalerDisplay}

@@ -49,3 +49,21 @@ export function createIngredientDisplay({ ingredient, scaler }) {
     ingredientString, quantityDisplay, unitDisplay, ingredientDisplay,
   };
 }
+
+/**
+ * Get recipe image for the given recipe
+ * @param {int} recipeId
+ * @returns {bool} hasImage -> whether this recipe has an image
+ * @returns {String} recipeImage -> src of this recipe image or null
+ */
+export function getRecipeImage(recipeId) {
+  let hasImage = true;
+  let recipeImage = null;
+  try {
+    const images = require.context('./Content/Recipe Images', true);
+    recipeImage = images(`./${recipeId}.jpg`);
+  } catch (e) {
+    hasImage = false;
+  }
+  return { hasImage, recipeImage };
+}

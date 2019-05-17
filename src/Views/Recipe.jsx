@@ -6,7 +6,7 @@ import RecipeContext from '../Context/RecipeContext';
 import { onMobile } from '../Styles/constants';
 import useRecipeData from '../Hooks/useRecipeData';
 import GlobalContext from '../Context/GlobalContext';
-import { convertTemperature } from '../utils';
+import { convertTemperature, getRecipeImage } from '../utils';
 
 const titleFontSize = '4rem';
 const mobileFontSize = '3rem';
@@ -75,23 +75,6 @@ const StyledImage = styled.img`
     height: auto;
     width: 100%;
 `;
-/**
- * Get recipe image for the given recipe
- * @param {int} recipeId
- * @returns {bool} hasImage -> whether this recipe has an image
- * @returns {String} recipeImage -> src of this recipe image or null
- */
-function getRecipeImage(recipeId) {
-  let hasImage = true;
-  let recipeImage = null;
-  try {
-    const images = require.context('../Content/Recipe Images', true);
-    recipeImage = images(`./${recipeId}.jpg`);
-  } catch (e) {
-    hasImage = false;
-  }
-  return { hasImage, recipeImage };
-}
 
 /**
  * Display values for temp tool

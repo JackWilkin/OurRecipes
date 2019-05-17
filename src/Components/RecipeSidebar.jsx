@@ -126,21 +126,17 @@ const OvenHeatDisplay = styled.span`
 
 export default function RecipeSidebar() {
   const {
-    recipeAppliances, ovenHeat, setInCelsius, inCelsius, celsius, fahrenheit,
+    recipeAppliances, ovenHeat, setInCelsius, inCelsius, celsius, fahrenheit, isCelsius,
   } = useContext(RecipeContext);
 
+  const [isToolsOpen, setIsToolsOpen] = React.useState(false);
   const hasAppliances = !(recipeAppliances === undefined || recipeAppliances.length === 0);
   const hasOvenHeat = !(ovenHeat === 0);
-  const hasTemperature = hasOvenHeat; // !(isCelsius === undefined);
-  let appliances;
+  const hasTemperature = !(isCelsius === undefined);
 
-  if (hasAppliances) {
-    appliances = recipeAppliances.map(
-      appliance => <Appliance key={appliance.id}>{appliance.name}</Appliance>,
-    );
-  }
-
-  const [isToolsOpen, setIsToolsOpen] = React.useState(false);
+  const appliances = !hasAppliances ? [] : recipeAppliances.map(
+    appliance => <Appliance key={appliance.id}>{appliance.name}</Appliance>,
+  );
 
   return (
     <Sidebar>

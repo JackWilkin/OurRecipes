@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { darkBlue } from '../Styles/constants';
-import { createIngredientDisplay } from '../utils';
+import { createIngredientDisplay, getRecipeImage } from '../utils';
 
 const StyledRecipePreview = styled.div`
     border: 1px solid ${darkBlue};
@@ -68,14 +68,7 @@ const RecipeIngredients = styled.div`
 export default function RecipePreview(props) {
   const { recipe } = props;
 
-  let hasImage = true;
-  let recipeImage;
-  try {
-    const images = require.context('../Content/Recipe Images', true);
-    recipeImage = images(`./${recipe.id}.jpg`);
-  } catch (e) {
-    hasImage = false;
-  }
+  const { hasImage, recipeImage } = getRecipeImage(recipe.id);
 
   let ingredients;
   if (recipe.ingredients.length > 0) {
@@ -97,12 +90,7 @@ export default function RecipePreview(props) {
             {recipe.title}
           </RecipeLink>
         </RecipeTitle>
-        {recipe.servings && (
-        <RecipeServings>
-          { `Servings: ${recipe.servings}`}
-        </RecipeServings>
-        )
-        }
+        {recipe.servings && <RecipeServings>{`Servings: ${recipe.servings}`}</RecipeServings>}
         <RecipeIngredients>
           {ingredients}
         </RecipeIngredients>

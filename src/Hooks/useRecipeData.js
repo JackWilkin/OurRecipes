@@ -1,6 +1,5 @@
 import React from 'react';
 import RecipeClient from '../RecipeAPI/RecipeClient';
-import { convertTemperature } from '../utils';
 
 export default function useRecipeData(recipeId) {
   const [id, setId] = React.useState();

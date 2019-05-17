@@ -65,11 +65,12 @@ const IngredientNotes = styled.div`
 function Ingredient(props) {
   const { ingredient } = props;
   const { scaler } = useContext(RecipeContext);
+  const hasNotes = ingredient.notes !== undefined;
+  const hasUnit = !(ingredient.unit === null);
   const [currentQuantity, setCurrentQuantity] = React.useState(ingredient.quantity);
   const [currentUnit, setCurrentUnit] = React.useState(ingredient.unit);
-  // const [currentIngredient, setCurrentIngredient] = React.useState(ingredient.name);
-  const hasNotes = ingredient.notes !== undefined;
   const [showNotes, setShowNotes] = React.useState(hasNotes);
+  // const [currentIngredient, setCurrentIngredient] = React.useState(ingredient.name);
 
   const viewIngredient = {
     quantity: currentQuantity,
@@ -83,7 +84,7 @@ function Ingredient(props) {
     <IngredientTool>
       <IngredientInfo>
         <Quantity>{ingredientDisplayInfo.quantityDisplay}</Quantity>
-        {ingredient.hasUnit && (
+        {hasUnit && (
           <Unit
             setCurrentQuantity={setCurrentQuantity}
             currentUnit={currentUnit}
