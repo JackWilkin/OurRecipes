@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 // import { Input } from 'semantic-ui-react';
-// import icon from '../Content/Images/pasta.png';
-// import { darkBlue } from '../Styles/constants';
+import { lightBlue } from '../Styles/constants';
 import RecipePreview from '../Components/RecipePreview';
 import GlobalContext from '../Context/GlobalContext';
 
@@ -48,7 +47,7 @@ const RecipeItem = styled.div`
   }
 
   &:hover {
-    background-color: #87AAD1;
+    background-color: ${lightBlue};
       > :last-child {
         max-height: 15rem;
       }
@@ -70,6 +69,7 @@ function Browse() {
       <RecipePreview recipe={recipe} />
     </RecipeItem>
   )) : '';
+
   return (
     <BrowsePage>
       <Header>

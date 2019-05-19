@@ -43,4 +43,6 @@ describe('Test Utils Functions', () => {
     expect(createIngredientDisplay({ ingredient: EGGS, scaler: 1 }).ingredientString).toBe('3  eggs');
     expect(createIngredientDisplay({ ingredient: EGGS, scaler: 1 / 3 }).ingredientString).toBe('1  egg');
   });
+
+  // TODO: tests for getRecipeImage
 });

@@ -125,12 +125,8 @@ function Recipe(props) {
     <RecipePage>
       <RecipeContext.Provider value={recipePageContext}>
         <RecipeTitle>{title}</RecipeTitle>
-        {subTitle
-        && <RecipeSubTitle>{`"${subTitle}"`}</RecipeSubTitle>
-        }
-        {hasImage
-        && <StyledImage src={recipeImage} alt={id} />
-        }
+        {subTitle && <RecipeSubTitle>{`"${subTitle}"`}</RecipeSubTitle>}
+        {hasImage && <StyledImage src={recipeImage} alt={id} />}
         <RecipeInfo>
           <RecipeContent>
             <RecipeContentHeader>Ingredients</RecipeContentHeader>

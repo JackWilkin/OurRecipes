@@ -29,7 +29,7 @@ const RecipeInfo = styled.div`
 `;
 
 const RecipeTitle = styled.div`
-  background-color: #2E3E55;
+  background-color: ${darkBlue};
   display: flex;
   font-size: 1.5rem;
   font-weight: bold;

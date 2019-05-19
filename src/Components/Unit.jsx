@@ -1,146 +1,104 @@
 import React, { useContext } from 'react';
-import styled from 'styled-components';
-import { Tab } from 'semantic-ui-react';
+import Radio from '@material-ui/core/Radio';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { withStyles } from '@material-ui/core/styles';
 import GlobalContext from '../Context/GlobalContext';
 import { convertUnit } from '../utils';
 import { mediumBlue, lightBlue, darkBlue } from '../Styles/constants';
-// import { Link } from 'react-router-dom';
-// import { createIngredientDisplay } from '../utils';
 
-const convertableUnitStyles = `
-  cursor: pointer;
+const UnitTool = withStyles({
+  root: {
+    boxShadow: 'none',
+    borderRight: `1px solid ${mediumBlue}`,
+    width: '5rem',
+  },
+  expanded: {
+    margin: 'auto',
+    width: 'auto',
+  },
+})(ExpansionPanel);
 
-  .ui.tab.active, .ui.tab.open {
-    :hover {
-      background-color: ${darkBlue};
-      color: white;
-    }
-  }
-`;
+const UnitDisplay = withStyles({
+  root: {
+    fontWeight: 'bold',
+    paddingLeft: '0.5rem',
+    transition: 'background-color 0.3s ease',
 
-const StyledUnit = styled(Tab)`
-    ${props => (props.unitConvertable ? convertableUnitStyles : '')}
-    border-right: 1px solid ${mediumBlue};
+    '& div': {
+      padding: 0,
+    },
 
-    .ui {
-      &.menu {
-        max-height: ${props => (props.open ? '5rem' : '0')};
-        transition: max-height 0.2s ease-out;
-        padding: 0;
-        ${props => (props.unitConvertable ? '' : 'display: none;')};
+    '&:hover': {
+      backgroundColor: darkBlue,
+      color: 'white',
+      '& svg': {
+        color: 'white',
+      },
+    },
+  },
+})(ExpansionPanelSummary);
 
-        &.attached {
-          min-height: 0;
+const UnitChoices = withStyles({
+  root: {
+    padding: 0,
+    maxWidth: '15rem',
+    flexWrap: 'wrap',
+    maxHeight: '5rem',
+  },
+})(ExpansionPanelDetails);
 
-          &.bottom .item.active {
-            border-radius: 0;
-          }
-        }
-
-        a.item {
-          ${props => (props.open ? 'display: flex' : 'display: none')};
-          border-right: 1px solid ${mediumBlue};
-
-          &.active {
-            background-color: ${lightBlue};
-            pointer-events: none;
-          }
-          
-          :hover {
-            background-color: ${darkBlue};
-            color: white;
-            border-radius: 0 !important;
-          }
-        }
-      }
-      &.tab.active {
-        border-radius: 0;
-        border-top: none;
-        border-bottom: none;
-        border-left: none;
-        border-right: none;
-        padding: 0.75rem;
-        font-size: 1rem;
-        margin: 0;
-        transition: background-color 0.3s ease-out;
-        color: ${darkBlue};
-        width: auto;
-        background-color: white;
-        font-weight: bold;
-
-        ${props => (props.open ? '' : `
-        height: 100%;
-        align-items: center;
-        justify-content: center;
-        display: flex;`)}
-      }
-
-      &.attached+.ui.attached.menu:not(.top) {
-        border-left: 1px solid ${mediumBlue};
-        ${props => (props.open ? `border-top: 1px solid ${mediumBlue};` : '')}
-        border-bottom: none;
-        border-right: none;
-        border-radius: 0;
-      }
-    }
-`;
+const UnitRadioButton = withStyles({
+  root: {
+    backgroundColor: lightBlue,
+    borderRadius: 0,
+    flexBasis: '33.3333%',
+    padding: '0.5rem',
+    transition: 'background-color 0.3s ease',
+    '& svg': {
+      color: darkBlue,
+    },
+  },
+  checked: {
+    pointerEvents: 'none',
+  },
+})(Radio);
 
 export default function Unit(props) {
   const {
     ingredient, setCurrentQuantity, setCurrentUnit, currentUnit,
   } = props;
   const { availableUnits } = useContext(GlobalContext);
-  const [openTabs, setOpenTabs] = React.useState(false);
-  const toggleTab = () => setOpenTabs(!openTabs);
   const unitConvertable = true;
 
-  const handleTabChange = (e, { activeIndex }) => {
-    const newUnit = availableUnits[activeIndex];
-    const origionalUnit = ingredient.unit;
-    setCurrentQuantity(convertUnit(ingredient.quantity, origionalUnit.scaler, newUnit.scaler));
-    setCurrentUnit(availableUnits[newUnit.id]);
+  const handleChange = (event) => {
+    const newUnitId = parseInt(event.target.value, 10);
+    const newUnit = availableUnits.find(unit => unit.id === newUnitId);
+    const oldUnit = availableUnits.find(unit => unit.id === ingredient.unit.id);
+    setCurrentQuantity(convertUnit(ingredient.quantity, oldUnit.scaler, newUnit.scaler));
+    setCurrentUnit(newUnitId);
   };
 
-  const panes = availableUnits.map(u => (
-    {
-      menuItem: u.name,
-      render: () => (
-        <Tab.Pane
-          key={u.id}
-          onClick={toggleTab}
-          open={openTabs}
-          attached="top"
-        >
-          {u.name}
-        </Tab.Pane>
-      ),
-    }
+  const unitChoices = availableUnits.map(unit => (
+    <UnitRadioButton
+      checked={currentUnit === unit.id}
+      onChange={handleChange}
+      value={unit.id}
+      name={unit.name}
+      aria-label={unit.name}
+      icon={unit.name}
+      key={unit.id}
+    />
   ));
 
-  // if (ingredient.hasUnit && !ingredient.unitConvertable) {
-  //   panes[ingredient.unit.id] = {
-  //     menuItem: ingredient.unit.name,
-  //     render: () => (
-  //       <Tab.Pane
-  //         key={ingredient.unit.id}
-  //         onClick={toggleTab}
-  //         open={openTabs}
-  //         attached="top"
-  //       >
-  //         {ingredient.unit.name}
-  //       </Tab.Pane>
-  //     ),
-  //   };
-  // }
-
   return (
-    <StyledUnit
-      defaultActiveIndex={currentUnit ? currentUnit.id : 0}
-      onTabChange={handleTabChange}
-      unitConvertable={unitConvertable}
-      menu={{ attached: 'bottom' }}
-      open={unitConvertable && openTabs}
-      panes={panes}
-    />
+    <UnitTool>
+      <UnitDisplay expandIcon={<ExpandMoreIcon />}>
+        {availableUnits.find(unit => unit.id === currentUnit).name}
+      </UnitDisplay>
+      <UnitChoices>{unitChoices}</UnitChoices>
+    </UnitTool>
   );
 }

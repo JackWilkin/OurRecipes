@@ -6,6 +6,7 @@ const apikey = '5aa5d596f0a7555103cea3c8';
 // Autotrade delay
 const tradeDelay = 5000; // millis
 
+// TODO: make endpoint variables for all resources
 // REST endpoint
 const restdb = axios.create({
   baseURL: 'https://llfrecipes-6c4b.restdb.io/rest/',

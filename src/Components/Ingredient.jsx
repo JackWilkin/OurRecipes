@@ -40,7 +40,7 @@ const IngredientDisplay = styled.div`
     justify-content: center;
     padding: 0.5rem;
     font-size: 1rem;
-    color: #2E3E55;
+    color: ${darkBlue};
     transition: background-color 0.3s ease-out;
     overflow: hidden;
 
@@ -68,13 +68,13 @@ function Ingredient(props) {
   const hasNotes = ingredient.notes !== undefined;
   const hasUnit = !(ingredient.unit === null);
   const [currentQuantity, setCurrentQuantity] = React.useState(ingredient.quantity);
-  const [currentUnit, setCurrentUnit] = React.useState(ingredient.unit);
+  const [currentUnit, setCurrentUnit] = React.useState(ingredient.unit ? ingredient.unit.id : 0);
   const [showNotes, setShowNotes] = React.useState(hasNotes);
   // const [currentIngredient, setCurrentIngredient] = React.useState(ingredient.name);
 
   const viewIngredient = {
     quantity: currentQuantity,
-    unit: currentUnit,
+    unit: ingredient.unit,
     name: ingredient.name,
   };
 
