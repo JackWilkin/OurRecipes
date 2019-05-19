@@ -19,7 +19,7 @@ export function decimalToFraction(decimal, maxDenominator) {
       }
     }
   }
-  return 'reached max denominator';
+  return 'N/A';
 }
 
 export function convertTemperature(temperature, isCelsius) {

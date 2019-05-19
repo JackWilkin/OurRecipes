@@ -46,7 +46,7 @@ const UnitChoices = withStyles({
     padding: 0,
     maxWidth: '15rem',
     flexWrap: 'wrap',
-    maxHeight: '5rem',
+    borderTop: `1px solid ${darkBlue}`,
   },
 })(ExpansionPanelDetails);
 
@@ -72,6 +72,7 @@ export default function Unit(props) {
   } = props;
   const { availableUnits } = useContext(GlobalContext);
   const unitConvertable = true;
+  const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (event) => {
     const newUnitId = parseInt(event.target.value, 10);
@@ -95,10 +96,10 @@ export default function Unit(props) {
 
   return (
     <UnitTool>
-      <UnitDisplay expandIcon={<ExpandMoreIcon />}>
+      <UnitDisplay onClick={() => setExpanded(!expanded)} expandIcon={<ExpandMoreIcon />}>
         {availableUnits.find(unit => unit.id === currentUnit).name}
       </UnitDisplay>
-      <UnitChoices>{unitChoices}</UnitChoices>
+      {expanded && <UnitChoices>{unitChoices}</UnitChoices>}
     </UnitTool>
   );
 }
