@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { createIngredientDisplay } from '../utils';
+import { createIngredientDisplay, decimalToFraction } from '../utils';
 import { mediumBlue, lightBlue, darkBlue } from '../Styles/constants';
 import RecipeContext from '../Context/RecipeContext';
+import GlobalContext from '../Context/GlobalContext';
 import Unit from './Unit';
 
 const IngredientTool = styled.div`
@@ -65,25 +66,27 @@ const IngredientNotes = styled.div`
 function Ingredient(props) {
   const { ingredient } = props;
   const { scaler } = useContext(RecipeContext);
-  const hasNotes = ingredient.notes !== undefined;
-  const hasUnit = !(ingredient.unit === null);
-  const [currentQuantity, setCurrentQuantity] = React.useState(ingredient.quantity);
-  const [currentUnit, setCurrentUnit] = React.useState(ingredient.unit ? ingredient.unit.id : 0);
+  const { availableUnits } = useContext(GlobalContext);
+  const hasNotes = ingredient.notes && ingredient.notes !== '';
+  const hasUnit = ingredient.unit !== null;
   const [showNotes, setShowNotes] = React.useState(hasNotes);
+  const [currentQuantity, setCurrentQuantity] = React.useState(ingredient.quantity);
+  const [currentUnit, setCurrentUnit] = React.useState(ingredient.unit ? ingredient.unit : 0);
   // const [currentIngredient, setCurrentIngredient] = React.useState(ingredient.name);
 
   const viewIngredient = {
     quantity: currentQuantity,
-    unit: ingredient.unit,
+    unit: availableUnits.find(unit => unit.id === currentUnit),
     name: ingredient.name,
   };
 
   const ingredientDisplayInfo = createIngredientDisplay({ ingredient: viewIngredient, scaler });
+  const quantityDisplay = decimalToFraction(currentQuantity * scaler, 1000);
 
   return (
     <IngredientTool>
       <IngredientInfo>
-        <Quantity>{ingredientDisplayInfo.quantityDisplay}</Quantity>
+        <Quantity>{quantityDisplay}</Quantity>
         {hasUnit && (
           <Unit
             setCurrentQuantity={setCurrentQuantity}

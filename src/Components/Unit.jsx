@@ -26,6 +26,7 @@ const UnitDisplay = withStyles({
     fontWeight: 'bold',
     paddingLeft: '0.5rem',
     transition: 'background-color 0.3s ease',
+    height: '100%',
 
     '& div': {
       padding: 0,
@@ -55,8 +56,10 @@ const UnitRadioButton = withStyles({
     backgroundColor: lightBlue,
     borderRadius: 0,
     flexBasis: '33.3333%',
+    fontSize: '115%',
     padding: '0.5rem',
     transition: 'background-color 0.3s ease',
+    width: '33%',
     '& svg': {
       color: darkBlue,
     },
@@ -77,7 +80,7 @@ export default function Unit(props) {
   const handleChange = (event) => {
     const newUnitId = parseInt(event.target.value, 10);
     const newUnit = availableUnits.find(unit => unit.id === newUnitId);
-    const oldUnit = availableUnits.find(unit => unit.id === ingredient.unit.id);
+    const oldUnit = availableUnits.find(unit => unit.id === ingredient.unit);
     setCurrentQuantity(convertUnit(ingredient.quantity, oldUnit.scaler, newUnit.scaler));
     setCurrentUnit(newUnitId);
   };

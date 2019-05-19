@@ -22,29 +22,10 @@ export function ingredientParser(json) {
   if (Array.isArray(json)) {
     [ingredient] = json;
   }
-  const unitName = ingredient.Unit ? ingredient.Unit[0] : '';
-  let unit = null;
+  let unit = ingredient.Unit;
 
-  switch (unitName) {
-    case 'Cup':
-      unit = {
-        scaler: 1, name: unitName, plural: `${unitName}s`, id: 0,
-      };
-      break;
-    case 'tsp':
-      unit = {
-        scaler: 48, name: unitName, plural: unitName, id: 1,
-      };
-      break;
-    case 'Tbs':
-      unit = {
-        scaler: 16, name: unitName, plural: unitName, id: 2,
-      };
-      break;
-    case 'Self':
-    default:
-      unit = null;
-      break;
+  if (ingredient.Unit === -1) {
+    unit = null;
   }
 
   const {
