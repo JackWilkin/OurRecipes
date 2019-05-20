@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -19,6 +19,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import { Link } from 'react-router-dom';
 import { createIngredientDisplay, getRecipeImage } from '../utils';
 import { darkBlue, lightBlue } from '../Styles/constants';
+import GlobalContext from '../Context/GlobalContext';
 // import Avatar from '@material-ui/core/Avatar';
 
 const RecipePreview = withStyles({
@@ -67,27 +68,42 @@ const RecipeCardActions = withStyles({
   },
 })(CardActions);
 
-const RecipeIngredient = styled.span`
-    padding-left: 0.5rem;
+const RecipeIngredient = styled.div`
+    padding: 0.5rem;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     max-width: 100%;
 `;
 
+const RecipeIngredients = withStyles({
+  root: {
+    height: '15rem',
+    overflow: 'auto',
+    padding: 0,
+  },
+})(CardContent);
+
 export default function RecipeCard(props) {
   const { recipe } = props;
   const { hasImage, recipeImage } = getRecipeImage(recipe.id);
+  const { availableUnits } = useContext(GlobalContext);
   const [expanded, setExpanded] = React.useState(false);
 
-  let ingredients;
-  if (recipe.ingredients.length > 0) {
-    ingredients = recipe.ingredients.map(ingredient => (
+  const ingredients = recipe.ingredients ? recipe.ingredients.map((ingredient) => {
+    const ingredientUnit = availableUnits.find(unit => unit.id === ingredient.unit);
+    const viewIngredient = {
+      name: ingredient.name,
+      quantity: ingredient.quantity,
+      unit: ingredientUnit,
+    };
+    return (
       <RecipeIngredient key={ingredient.id}>
-        {createIngredientDisplay({ ingredient, scaler: 1 }).ingredientString}
+        {createIngredientDisplay({ ingredient: viewIngredient, scaler: 1 }).ingredientString}
       </RecipeIngredient>
-    ));
-  }
+    );
+  }) : [];
+
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -109,13 +125,14 @@ export default function RecipeCard(props) {
         title={recipe.title}
         subheader={recipe.subTitle}
       />
-      <RecipeMedia
-        image={recipeImage}
-        title={recipe.id}
-      />
-      {/* <CardContent>
-        {ingredients}
-      </CardContent> */}
+      {/* <RecipeDisplay> */}
+      {hasImage && <RecipeMedia image={recipeImage} title={recipe.id} />}
+      {!hasImage && (
+        <RecipeIngredients>
+          {ingredients}
+        </RecipeIngredients>
+      )}
+      {/* </RecipeDisplay> */}
       <RecipeCardActions disableActionSpacing>
         <IconButton aria-label="Add to favorites">
           <FavoriteIcon />

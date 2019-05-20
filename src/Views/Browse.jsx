@@ -30,40 +30,18 @@ const RecipeList = styled.div`
   width: 100%;
 `;
 
-// const RecipeItem = styled.div`
-//   width: 100%;
-//   max-width: 60rem;
-//   background-color: #EFF1F7;
-//   border-radius: 1rem;
-//   margin-bottom: 0.75rem;
-//   overflow: hidden;
-
-//   > :last-child {
-//     overflow: hidden;
-//     max-height: 0;
-//     border: none;
-//     transition: max-height 0.1s ease-out;
-//   }
-
-//   &:hover {
-//     background-color: ${lightBlue};
-//       > :last-child {
-//         max-height: 15rem;
-//       }
-//   }
-// `;
-
-// const ItemTitle = styled.h2`
-//   margin: auto;
-//   text-align: center;
-//   padding: 1rem;
-// `;
+const RecipePreview = styled.div`
+  max-width: 20rem;
+  margin: 1rem;
+`;
 
 function Browse() {
   const { recipes } = useContext(GlobalContext);
 
   const recipeList = recipes.length ? recipes.map(recipe => (
-    <RecipeCard recipe={recipe} />
+    <RecipePreview>
+      <RecipeCard recipe={recipe} />
+    </RecipePreview>
   )) : '';
 
   return (
