@@ -31,7 +31,7 @@ const NavbarLink = styled(Link)`
   }
 `;
 
-export default function RecipePreview() {
+export default function AppBar() {
   return (
     <Navbar>
       <NavbarTitle>Our Recipes</NavbarTitle>

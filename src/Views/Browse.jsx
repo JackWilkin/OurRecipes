@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-// import { Input } from 'semantic-ui-react';
-import { lightBlue } from '../Styles/constants';
-import RecipePreview from '../Components/RecipePreview';
+// import { lightBlue } from '../Styles/constants';
+import RecipeCard from '../Components/RecipeCard';
 import GlobalContext from '../Context/GlobalContext';
 
 const BrowsePage = styled.main`
@@ -31,43 +30,40 @@ const RecipeList = styled.div`
   width: 100%;
 `;
 
-const RecipeItem = styled.div`
-  width: 100%;
-  max-width: 60rem;
-  background-color: #EFF1F7;
-  border-radius: 1rem;
-  margin-bottom: 0.75rem;
-  overflow: hidden;
+// const RecipeItem = styled.div`
+//   width: 100%;
+//   max-width: 60rem;
+//   background-color: #EFF1F7;
+//   border-radius: 1rem;
+//   margin-bottom: 0.75rem;
+//   overflow: hidden;
 
-  > :last-child {
-    overflow: hidden;
-    max-height: 0;
-    border: none;
-    transition: max-height 0.1s ease-out;
-  }
+//   > :last-child {
+//     overflow: hidden;
+//     max-height: 0;
+//     border: none;
+//     transition: max-height 0.1s ease-out;
+//   }
 
-  &:hover {
-    background-color: ${lightBlue};
-      > :last-child {
-        max-height: 15rem;
-      }
-  }
-`;
+//   &:hover {
+//     background-color: ${lightBlue};
+//       > :last-child {
+//         max-height: 15rem;
+//       }
+//   }
+// `;
 
-const ItemTitle = styled.h2`
-  margin: auto;
-  text-align: center;
-  padding: 1rem;
-`;
+// const ItemTitle = styled.h2`
+//   margin: auto;
+//   text-align: center;
+//   padding: 1rem;
+// `;
 
 function Browse() {
   const { recipes } = useContext(GlobalContext);
 
   const recipeList = recipes.length ? recipes.map(recipe => (
-    <RecipeItem key={recipe.id}>
-      <ItemTitle>{recipe.title}</ItemTitle>
-      <RecipePreview recipe={recipe} />
-    </RecipeItem>
+    <RecipeCard recipe={recipe} />
   )) : '';
 
   return (

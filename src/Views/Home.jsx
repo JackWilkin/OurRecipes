@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-// import { Input } from 'semantic-ui-react';
 import background from '../Content/Images/pasta.png';
-import RecipePreview from '../Components/RecipePreview';
+import RecipeCard from '../Components/RecipeCard';
 import GlobalContext from '../Context/GlobalContext';
 
 const HomePage = styled.div`
@@ -25,11 +24,20 @@ const Header = styled.div`
   margin-bottom: 3rem;
 `;
 
-const FeaturedRecipe = styled.div`
-  margin-bottom: 3rem;
+const FeaturedRecipes = styled.div`
+  display: flex;
   width: 80%;
   margin-left: auto;
   margin-right: auto;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+`;
+
+const FeaturedRecipe = styled.div`
+  width: 100%;
+  max-width: 28rem;
+  margin: 1rem;
 `;
 
 function Home() {
@@ -42,17 +50,17 @@ function Home() {
       </Header>
       {displayRecipes
       && (
-      <div>
+      <FeaturedRecipes>
         <FeaturedRecipe>
-          <RecipePreview recipe={recipes[11]} />
+          <RecipeCard recipe={recipes[11]} />
         </FeaturedRecipe>
         <FeaturedRecipe>
-          <RecipePreview recipe={recipes[17]} />
+          <RecipeCard recipe={recipes[17]} />
         </FeaturedRecipe>
         <FeaturedRecipe>
-          <RecipePreview recipe={recipes[25]} />
+          <RecipeCard recipe={recipes[25]} />
         </FeaturedRecipe>
-      </div>
+      </FeaturedRecipes>
       )
       }
     </HomePage>
