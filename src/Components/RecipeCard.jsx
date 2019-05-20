@@ -37,14 +37,12 @@ const RecipeHeader = withStyles({
       color: 'white',
       fontSize: '1.3rem',
     },
-    '& div': {
-      margin: 'auto',
-    },
   },
 })(CardHeader);
 
 const RecipeLink = styled(Link)`
   color: white;
+  padding-left: 1rem;
 
   &:hover {
     color: ${lightBlue};
