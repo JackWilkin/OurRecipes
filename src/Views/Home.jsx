@@ -42,36 +42,27 @@ const FeaturedRecipe = styled.div`
 
 function Home() {
   const { recipes } = useContext(GlobalContext);
-  const displayRecipes = recipes.length > 0;
+
+  const featuredIds = [15, 34, 17, 33, 7, 35, 36];
+  const featuredRecipes = recipes.filter(
+    recipe => featuredIds.includes(recipe.id),
+  );
+
+  const displayRecipes = featuredRecipes.map(
+    featuredRecipe => (
+      <FeaturedRecipe key={featuredRecipe.id}>
+        <RecipeCard recipe={featuredRecipe} />
+      </FeaturedRecipe>
+    ),
+  );
   return (
     <HomePage>
       <Header>
         {/* <Input placeholder="Search Recipes" /> */}
       </Header>
-      {displayRecipes
-      && (
       <FeaturedRecipes>
-        <FeaturedRecipe>
-          <RecipeCard recipe={recipes.find(recipe => recipe.id === 15)} />
-        </FeaturedRecipe>
-        <FeaturedRecipe>
-          <RecipeCard recipe={recipes.find(recipe => recipe.id === 34)} />
-        </FeaturedRecipe>
-        <FeaturedRecipe>
-          <RecipeCard recipe={recipes.find(recipe => recipe.id === 17)} />
-        </FeaturedRecipe>
-        <FeaturedRecipe>
-          <RecipeCard recipe={recipes.find(recipe => recipe.id === 33)} />
-        </FeaturedRecipe>
-        <FeaturedRecipe>
-          <RecipeCard recipe={recipes.find(recipe => recipe.id === 7)} />
-        </FeaturedRecipe>
-        <FeaturedRecipe>
-          <RecipeCard recipe={recipes.find(recipe => recipe.id === 35)} />
-        </FeaturedRecipe>
+        {displayRecipes}
       </FeaturedRecipes>
-      )
-      }
     </HomePage>
   );
 }

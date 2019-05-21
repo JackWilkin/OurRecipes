@@ -39,7 +39,7 @@ function Browse() {
   const { recipes } = useContext(GlobalContext);
 
   const recipeList = recipes.length ? recipes.map(recipe => (
-    <RecipePreview>
+    <RecipePreview key={recipe.id}>
       <RecipeCard recipe={recipe} />
     </RecipePreview>
   )) : '';
