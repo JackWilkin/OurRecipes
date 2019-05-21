@@ -64,6 +64,7 @@ export function getRecipeImage(recipeId) {
     recipeImage = images(`./${recipeId}.jpg`);
   } catch (e) {
     hasImage = false;
+    console.log(`Recipe: ${recipeId} error: ${e}`);
   }
   return { hasImage, recipeImage };
 }
