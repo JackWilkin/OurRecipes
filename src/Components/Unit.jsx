@@ -74,7 +74,7 @@ export default function Unit(props) {
     ingredient, setCurrentQuantity, setCurrentUnit, currentUnit,
   } = props;
   const { availableUnits } = useContext(GlobalContext);
-  const unitConvertable = true;
+  // const unitConvertable = true;
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (event) => {

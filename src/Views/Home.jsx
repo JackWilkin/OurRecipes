@@ -52,13 +52,16 @@ function Home() {
       && (
       <FeaturedRecipes>
         <FeaturedRecipe>
-          <RecipeCard recipe={recipes[11]} />
+          <RecipeCard recipe={recipes.find(recipe => recipe.id === 15)} />
         </FeaturedRecipe>
         <FeaturedRecipe>
-          <RecipeCard recipe={recipes[17]} />
+          <RecipeCard recipe={recipes.find(recipe => recipe.id === 34)} />
         </FeaturedRecipe>
         <FeaturedRecipe>
-          <RecipeCard recipe={recipes[25]} />
+          <RecipeCard recipe={recipes.find(recipe => recipe.id === 17)} />
+        </FeaturedRecipe>
+        <FeaturedRecipe>
+          <RecipeCard recipe={recipes.find(recipe => recipe.id === 33)} />
         </FeaturedRecipe>
       </FeaturedRecipes>
       )

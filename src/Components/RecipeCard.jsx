@@ -33,6 +33,7 @@ const RecipePreview = withStyles({
 const RecipeHeader = withStyles({
   root: {
     backgroundColor: darkBlue,
+    minWidth: '15rem',
     '& span': {
       color: 'white',
       fontSize: '1.3rem',
