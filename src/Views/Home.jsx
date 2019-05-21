@@ -63,6 +63,12 @@ function Home() {
         <FeaturedRecipe>
           <RecipeCard recipe={recipes.find(recipe => recipe.id === 33)} />
         </FeaturedRecipe>
+        <FeaturedRecipe>
+          <RecipeCard recipe={recipes.find(recipe => recipe.id === 7)} />
+        </FeaturedRecipe>
+        <FeaturedRecipe>
+          <RecipeCard recipe={recipes.find(recipe => recipe.id === 35)} />
+        </FeaturedRecipe>
       </FeaturedRecipes>
       )
       }
