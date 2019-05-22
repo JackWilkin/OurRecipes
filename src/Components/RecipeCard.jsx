@@ -83,6 +83,13 @@ const RecipeIngredients = withStyles({
   },
 })(CardContent);
 
+const DetailsHeader = withStyles({
+  root: {
+    paddingTop: '0.5rem',
+    paddingBottom: '0.5rem',
+  },
+})(Typography);
+
 export default function RecipeCard(props) {
   const { recipe } = props;
   const { hasImage, recipeImage } = getRecipeImage(recipe.id);
@@ -124,14 +131,11 @@ export default function RecipeCard(props) {
         title={recipe.title}
         subheader={recipe.subTitle}
       />
-      {/* <RecipeDisplay> */}
-      {hasImage && <RecipeMedia image={recipeImage} title={recipe.id} />}
-      {!hasImage && (
+      {hasImage ? <RecipeMedia image={recipeImage} /> : (
         <RecipeIngredients>
           {ingredients}
         </RecipeIngredients>
       )}
-      {/* </RecipeDisplay> */}
       <RecipeCardActions disableActionSpacing>
         <IconButton aria-label="Add to favorites">
           <FavoriteIcon />
@@ -149,6 +153,9 @@ export default function RecipeCard(props) {
       </RecipeCardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
+          {hasImage && <DetailsHeader variant="h6">Ingredients</DetailsHeader>}
+          {hasImage && ingredients}
+          <DetailsHeader variant="h6">Instructions</DetailsHeader>
           <Typography paragraph>{recipe.instructions}</Typography>
         </CardContent>
       </Collapse>

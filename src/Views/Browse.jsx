@@ -31,6 +31,7 @@ const RecipeList = styled.div`
 `;
 
 const RecipePreview = styled.div`
+  width: 100%
   max-width: 20rem;
   margin: 1rem;
 `;
@@ -38,7 +39,9 @@ const RecipePreview = styled.div`
 function Browse() {
   const { recipes } = useContext(GlobalContext);
 
-  const recipeList = recipes.length ? recipes.map(recipe => (
+  const displayRecipes = recipes.filter(recipe => recipe.id !== 0);
+
+  const recipeList = recipes.length ? displayRecipes.map(recipe => (
     <RecipePreview key={recipe.id}>
       <RecipeCard recipe={recipe} />
     </RecipePreview>
