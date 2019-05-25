@@ -14,6 +14,7 @@ const UnitTool = withStyles({
     boxShadow: 'none',
     borderRight: `1px solid ${mediumBlue}`,
     width: '5rem',
+    pointerEvents: 'all',
   },
   expanded: {
     margin: 'auto',
@@ -28,10 +29,6 @@ const UnitDisplay = withStyles({
     transition: 'background-color 0.3s ease',
     height: '100%',
 
-    '& div': {
-      padding: 0,
-    },
-
     '&:hover': {
       backgroundColor: darkBlue,
       color: 'white',
@@ -39,6 +36,10 @@ const UnitDisplay = withStyles({
         color: 'white',
       },
     },
+  },
+  expandIcon: {
+    right: 0,
+    padding: '0.25rem',
   },
 })(ExpansionPanelSummary);
 
