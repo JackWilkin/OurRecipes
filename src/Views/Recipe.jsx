@@ -21,8 +21,6 @@ const RecipePage = styled.div`
 const RecipeTitle = styled.h1`
     width: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: ${titleFontSize};
     margin-bottom: 0;
     text-align: center;

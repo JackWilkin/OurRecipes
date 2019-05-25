@@ -19,9 +19,6 @@ const IngredientTool = withStyles({
     boxShadow: 'none',
     display: 'flex',
     flexDirection: 'column',
-    // borderTop: `1px solid ${darkBlue}`,
-    // borderBottom: `1px solid ${darkBlue}`,
-    // borderLeft: `1px solid ${darkBlue}`,
     outline: `1px solid ${darkBlue}`,
     marginBottom: '1rem',
     padding: 0,
@@ -57,7 +54,7 @@ const IngredientDisplay = withStyles({
     flexGrow: 1,
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    textAlign: 'center',
     fontSize: '1rem',
     color: darkBlue,
     transition: 'background-color 0.3s ease-out',
@@ -90,7 +87,6 @@ function Ingredient(props) {
   const [expanded, setExpanded] = React.useState(hasNotes);
   const [currentQuantity, setCurrentQuantity] = React.useState(ingredient.quantity);
   const [currentUnit, setCurrentUnit] = React.useState(ingredient.unit ? ingredient.unit : 0);
-  // const [currentIngredient, setCurrentIngredient] = React.useState(ingredient.name);
 
   const viewIngredient = {
     quantity: currentQuantity,
