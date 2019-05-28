@@ -95,7 +95,7 @@ function Ingredient(props) {
   };
 
   const ingredientDisplayInfo = createIngredientDisplay({ ingredient: viewIngredient, scaler });
-  const quantityDisplay = decimalToFraction(currentQuantity * scaler, 1000);
+  const quantityDisplay = decimalToFraction(currentQuantity * scaler);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -120,6 +120,7 @@ function Ingredient(props) {
       <IngredientSummary>
         <Quantity>{quantityDisplay}</Quantity>
         {hasUnit && (
+          // TODO: unit above and turn this into a display
           <Unit
             setCurrentQuantity={setCurrentQuantity}
             currentUnit={currentUnit}

@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { Checkbox } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faToolbox, faCaretDown, faThermometerHalf } from '@fortawesome/free-solid-svg-icons';
+import { faToolbox, faThermometerHalf } from '@fortawesome/free-solid-svg-icons';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ScaleTool from './ScaleTool';
 import Oven from '../Content/Images/oven-white.png';
 import Mixer from '../Content/Images/mixer-white.png';
@@ -22,7 +23,7 @@ const Sidebar = styled.div`
     flex-direction: column;
     background-color: ${darkBlue};
     color: white;
-    min-width: 20rem;
+
     height: fit-content;
     margin-top: 1rem;
     margin-left: 1rem;
@@ -129,7 +130,7 @@ export default function RecipeSidebar() {
     recipeAppliances, ovenHeat, setInCelsius, inCelsius, celsius, fahrenheit, isCelsius,
   } = useContext(RecipeContext);
 
-  const [isToolsOpen, setIsToolsOpen] = React.useState(false);
+  const [expanded, setExpanded] = React.useState(true);
   const hasAppliances = !(recipeAppliances === undefined || recipeAppliances.length === 0);
   const hasOvenHeat = !(ovenHeat === 0);
   const hasTemperature = !(isCelsius === undefined);
@@ -140,12 +141,12 @@ export default function RecipeSidebar() {
 
   return (
     <Sidebar>
-      <SidebarHeader>
-        <ToolsHeaderIcon icon={faToolbox} color="white" />
+      <SidebarHeader onClick={() => setExpanded(!expanded)}>
+        <ToolsHeaderIcon icon={faToolbox} />
           Tools
-        <ToolsHeaderIcon icon={faCaretDown} onClick={() => { setIsToolsOpen(!isToolsOpen); }} color="white" />
+        <ExpandMoreIcon color="white" />
       </SidebarHeader>
-      <Tools isOpen={isToolsOpen}>
+      <Tools isOpen={expanded}>
         <ScaleTool />
         { hasTemperature && (
           <OvenHeatTool>

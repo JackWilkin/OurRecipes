@@ -32,8 +32,10 @@ const Servings = styled.span`
 
 const ScaleInput = styled(Input)`
     width: calc(100% - ${SCALE_BUTTON_COUNT * SCALE_BUTTON_WIDTH_VALUE}rem);
+
     &.ui.input {
         &> input {
+            min-width: 4rem;
             border-radius: 0;
             width: 100%;
             border: none;

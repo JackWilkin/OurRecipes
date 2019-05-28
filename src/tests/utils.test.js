@@ -15,9 +15,9 @@ const EGGS = MockData.ingredients[4];
 
 describe('Test Utils Functions', () => {
   test('Test decimalToFraction', () => {
-    expect(decimalToFraction(0.66666, 1000)).toBe('2/3');
-    expect(decimalToFraction(1, 1000)).toBe('1');
-    expect(decimalToFraction(1.5, 1000)).toBe('1 1/2');
+    expect(decimalToFraction(0.6666666666666)).toBe('2/3');
+    expect(decimalToFraction(1)).toBe('1');
+    expect(decimalToFraction(1.5)).toBe('1 1/2');
   });
 
   test('Test convertTemperature', () => {

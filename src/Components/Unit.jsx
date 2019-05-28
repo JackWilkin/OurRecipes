@@ -9,11 +9,12 @@ import GlobalContext from '../Context/GlobalContext';
 import { convertUnit } from '../utils';
 import { mediumBlue, lightBlue, darkBlue } from '../Styles/constants';
 
+// TODO: convert to card
 const UnitTool = withStyles({
   root: {
     boxShadow: 'none',
     borderRight: `1px solid ${mediumBlue}`,
-    width: '5rem',
+    width: 'auto',
     pointerEvents: 'all',
   },
   expanded: {
@@ -22,6 +23,7 @@ const UnitTool = withStyles({
   },
 })(ExpansionPanel);
 
+// TODO: remove
 const UnitDisplay = withStyles({
   root: {
     fontWeight: 'bold',
@@ -38,8 +40,9 @@ const UnitDisplay = withStyles({
     },
   },
   expandIcon: {
+    top: 'auto',
     right: 0,
-    padding: '0.25rem',
+    padding: 0,
   },
 })(ExpansionPanelSummary);
 
@@ -75,7 +78,6 @@ export default function Unit(props) {
     ingredient, setCurrentQuantity, setCurrentUnit, currentUnit,
   } = props;
   const { availableUnits } = useContext(GlobalContext);
-  // const unitConvertable = true;
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (event) => {

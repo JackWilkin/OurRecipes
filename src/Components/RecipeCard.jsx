@@ -9,7 +9,6 @@ import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-// import MoreVertIcon from '@material-ui/icons/MoreVert';
 import styled from 'styled-components';
 import { styled as muiStyled } from '@material-ui/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,6 +16,7 @@ import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import { Link } from 'react-router-dom';
+import Tooltip from '@material-ui/core/Tooltip';
 import { createIngredientDisplay, getRecipeImage } from '../utils';
 import { darkBlue, lightBlue } from '../Styles/constants';
 import GlobalContext from '../Context/GlobalContext';
@@ -124,9 +124,11 @@ export default function RecipeCard(props) {
     <RecipePreview>
       <RecipeHeader
         action={(
-          <RecipeLink to={`/Recipe/${recipe.id}`}>
-            <FontAwesomeIcon icon={faExternalLinkAlt} />
-          </RecipeLink>
+          <Tooltip title="View recipe">
+            <RecipeLink to={`/Recipe/${recipe.id}`}>
+              <FontAwesomeIcon size="lg" icon={faExternalLinkAlt} />
+            </RecipeLink>
+          </Tooltip>
         )}
         title={recipe.title}
         subheader={recipe.subTitle}

@@ -14,8 +14,11 @@ const mobileFontSize = '3rem';
 const RecipePage = styled.div`
     display: flex;
     flex-direction: column;
-    width: 85%;
     margin: auto;
+    width: 100%;
+    max-width: 900px;
+    padding-left: 2rem;
+    padding-right: 2rem;
 `;
 
 const RecipeTitle = styled.h1`

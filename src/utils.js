@@ -1,25 +1,22 @@
-export function decimalToFraction(decimal, maxDenominator) {
-  for (let d = 1; d <= maxDenominator; d += 1) {
-    const currentNumerator = (decimal * d).toFixed(4);
-    if ((currentNumerator % 1) === 0) {
-      if (d === 1) {
-        const integer = Math.floor(currentNumerator / d);
-        return `${integer}`;
-      }
-      if (currentNumerator > d) {
-        const integer = Math.floor(currentNumerator / d);
-        const remainder = currentNumerator - integer * d;
-        return `${integer} ${remainder}/${d}`;
-      }
-      if (currentNumerator === d) {
-        return '1';
-      }
-      if (d > currentNumerator) {
-        return `${Math.round(currentNumerator)}/${d}`;
-      }
-    }
+import math from 'mathjs';
+
+export function decimalToFraction(decimal) {
+  let fraction = math.fraction(decimal);
+
+  if (fraction.d > 32) {
+    fraction = math.fraction(math.round(32 * decimal) / 32);
   }
-  return 'N/A';
+
+  if (fraction.d === 1) {
+    return fraction.n.toString();
+  }
+  if (fraction.n > fraction.d) {
+    const integer = math.floor(fraction.n / fraction.d);
+    const remainder = fraction.n % fraction.d;
+    return `${integer} ${remainder}/${fraction.d}`;
+  }
+
+  return math.format(fraction).toString();
 }
 
 export function convertTemperature(temperature, isCelsius) {
