@@ -23,10 +23,10 @@ export default function useRecipeData(recipeId) {
       setSubTitle(recipe.subTitle);
       setInstructions(recipe.instructions);
       setIngredients(recipe.ingredients);
-      setOvenHeat(recipe.ovenHeat);
       setServings(recipe.servings);
       setAppliances(recipe.appliances);
       setIsCelsius(recipe.isCelsius);
+      setOvenHeat(recipe.ovenHeat);
     })();
   }, []);
 

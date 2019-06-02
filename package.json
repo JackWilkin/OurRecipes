@@ -38,7 +38,8 @@
   "eslintConfig": {
     "extends": "airbnb",
     "rules": {
-      "react/prop-types": 0
+      "react/prop-types": 0,
+      "no-restricted-globals":0
     },
     "env": {
       "jest": true,

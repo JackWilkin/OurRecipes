@@ -12,9 +12,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import styled from 'styled-components';
 import { styled as muiStyled } from '@material-ui/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+// import FavoriteIcon from '@material-ui/icons/Favorite';
+// import ShareIcon from '@material-ui/icons/Share';
 import { Link } from 'react-router-dom';
 import Tooltip from '@material-ui/core/Tooltip';
 import { createIngredientDisplay, getRecipeImage } from '../utils';
@@ -52,7 +52,7 @@ const RecipeLink = styled(Link)`
 
 const RecipeMedia = withStyles({
   root: {
-    height: 0,
+    height: '15rem',
     paddingTop: '56.25%',
   },
 })(CardMedia);
@@ -61,6 +61,7 @@ const RecipeCardActions = withStyles({
   root: {
     display: 'flex',
     backgroundColor: darkBlue,
+    padding: 0,
     '& span': {
       color: 'white',
     },
@@ -126,7 +127,7 @@ export default function RecipeCard(props) {
         action={(
           <Tooltip title="View recipe">
             <RecipeLink to={`/Recipe/${recipe.id}`}>
-              <FontAwesomeIcon size="lg" icon={faExternalLinkAlt} />
+              <FontAwesomeIcon size="lg" icon={faInfoCircle} />
             </RecipeLink>
           </Tooltip>
         )}
@@ -139,12 +140,12 @@ export default function RecipeCard(props) {
         </RecipeIngredients>
       )}
       <RecipeCardActions disableActionSpacing>
-        <IconButton aria-label="Add to favorites">
+        {/* <IconButton aria-label="Add to favorites">
           <FavoriteIcon />
         </IconButton>
         <IconButton aria-label="Share: copy link">
           <ShareIcon />
-        </IconButton>
+        </IconButton> */}
         <OpenDetailsIcon
           onClick={handleExpandClick}
           aria-expanded={expanded}

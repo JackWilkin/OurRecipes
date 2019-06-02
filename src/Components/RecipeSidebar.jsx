@@ -144,7 +144,7 @@ export default function RecipeSidebar() {
       <SidebarHeader onClick={() => setExpanded(!expanded)}>
         <ToolsHeaderIcon icon={faToolbox} />
           Tools
-        <ExpandMoreIcon color="white" />
+        <ExpandMoreIcon />
       </SidebarHeader>
       <Tools isOpen={expanded}>
         <ScaleTool />

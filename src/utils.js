@@ -1,14 +1,18 @@
 import math from 'mathjs';
 
+// TODO: return object with decimal and fraction representation
+// Investigate: types Metric/english
 export function decimalToFraction(decimal) {
   let fraction = math.fraction(decimal);
 
-  if (fraction.d > 32) {
-    fraction = math.fraction(math.round(32 * decimal) / 32);
+  // If denominator is over 32 round to nearest 32nd
+  const maxDenominator = 32;
+  if (fraction.d > maxDenominator) {
+    fraction = math.fraction(math.round(maxDenominator * decimal) / maxDenominator);
   }
 
   if (fraction.d === 1) {
-    return fraction.n.toString();
+    return fraction.n === 0 ? 'N/A' : fraction.n.toString();
   }
   if (fraction.n > fraction.d) {
     const integer = math.floor(fraction.n / fraction.d);
@@ -20,11 +24,8 @@ export function decimalToFraction(decimal) {
 }
 
 export function convertTemperature(temperature, isCelsius) {
-  if (isCelsius) {
-    return Math.round((temperature * 9 / 5) + 32);
-  }
-
-  return Math.round((temperature - 32) * 5 / 9);
+  return isCelsius ? Math.round((temperature * 9 / 5) + 32)
+    : Math.round((temperature - 32) * 5 / 9);
 }
 
 export function convertUnit(quantity, origionalUnitScaler, newUnitScaler) {
@@ -34,6 +35,7 @@ export function convertUnit(quantity, origionalUnitScaler, newUnitScaler) {
   return quantity * newUnitScaler / origionalUnitScaler;
 }
 
+// TODO: take, quantity, unit, name, plural, scaler
 export function createIngredientDisplay({ ingredient, scaler }) {
   const quantity = ingredient.quantity * scaler;
   const quantityDisplay = decimalToFraction(quantity, 1000);

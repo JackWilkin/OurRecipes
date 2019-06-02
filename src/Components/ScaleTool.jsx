@@ -30,6 +30,7 @@ const Servings = styled.span`
     float: right;
 `;
 
+// TODO: Convert to number format
 const ScaleInput = styled(Input)`
     width: calc(100% - ${SCALE_BUTTON_COUNT * SCALE_BUTTON_WIDTH_VALUE}rem);
 
@@ -77,7 +78,10 @@ export default function ScaleTool() {
   const hasServings = !(servings === undefined);
 
   const scaleRecipe = (newScaler) => {
-    setScaler(newScaler);
+    const isNumber = !isNaN(newScaler);
+    if (isNumber) {
+      setScaler(+newScaler);
+    }
     setScalerDisplay(newScaler);
   };
 

@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { darkBlue } from '../Styles/constants';
+import { darkBlue, appBarHeight } from '../Styles/constants';
 
 const Navbar = styled.div`
   align-items: center;
   background-color: ${darkBlue};
   display: flex;
-  height: 3.5rem;
+  min-height: ${appBarHeight};
   width: 100%;
 `;
 
