@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-// import { lightBlue } from '../Styles/constants';
+import LoadingSpinner from '../Components/LoadingSpinner';
 import RecipeCard from '../Components/RecipeCard';
 import GlobalContext from '../Context/GlobalContext';
 
@@ -8,6 +8,7 @@ const BrowsePage = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-grow: 1;
 `;
 
 const Header = styled.div`
@@ -28,6 +29,8 @@ const RecipeList = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   width: 100%;
+  height: 100%; 
+  align-items: center;
 `;
 
 const RecipePreview = styled.div`
@@ -37,7 +40,7 @@ const RecipePreview = styled.div`
 `;
 
 function Browse() {
-  const { recipes } = useContext(GlobalContext);
+  const { recipes, isLoading } = useContext(GlobalContext);
 
   const displayRecipes = recipes.filter(recipe => recipe.id !== 0);
 
@@ -53,7 +56,7 @@ function Browse() {
         <PageTitle>Browse Our Recipes</PageTitle>
       </Header>
       <RecipeList>
-        {recipeList}
+        {isLoading ? <LoadingSpinner /> : recipeList}
       </RecipeList>
     </BrowsePage>
   );

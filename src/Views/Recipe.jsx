@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
+import LoadingSpinner from '../Components/LoadingSpinner';
 import RecipeSidebar from '../Components/RecipeSidebar';
 import RecipeIngredients from '../Components/RecipeIngredients';
 import RecipeContext from '../Context/RecipeContext';
-import { onMobile } from '../Styles/constants';
+import { onMobile, appBarHeight } from '../Styles/constants';
 import useRecipeData from '../Hooks/useRecipeData';
 import GlobalContext from '../Context/GlobalContext';
 import { convertTemperature, getRecipeImage } from '../utils';
@@ -19,6 +20,12 @@ const RecipePage = styled.div`
     max-width: 900px;
     padding-left: 2rem;
     padding-right: 2rem;
+
+    ${props => (props.isLoading ? `
+      height: calc(100% - ${appBarHeight}); 
+      justify-content: center; 
+      align-items: center;`
+    : '')}
 `;
 
 const RecipeTitle = styled.h1`
@@ -105,7 +112,7 @@ function Recipe(props) {
     },
   } = props;
   const recipeContext = useRecipeData(recipeId);
-  const { recipes } = useContext(GlobalContext);
+  const { recipes, isLoading } = useContext(GlobalContext);
   const context = recipes.length > 1
     ? recipes.find(recipe => recipe.id.toString() === recipeId) : recipeContext;
 
@@ -123,21 +130,23 @@ function Recipe(props) {
   };
 
   return (
-    <RecipePage>
-      <RecipeContext.Provider value={recipePageContext}>
-        <RecipeTitle>{title}</RecipeTitle>
-        {subTitle && <RecipeSubTitle>{`"${subTitle}"`}</RecipeSubTitle>}
-        {hasImage && <StyledImage src={recipeImage} alt={id} />}
-        <RecipeInfo>
-          <RecipeContent>
-            <RecipeContentHeader>Ingredients</RecipeContentHeader>
-            <RecipeIngredients />
-            <RecipeContentHeader>Instructions</RecipeContentHeader>
-            <RecipeInstructions>{instructions}</RecipeInstructions>
-          </RecipeContent>
-          <RecipeSidebar />
-        </RecipeInfo>
-      </RecipeContext.Provider>
+    <RecipePage isLoading={!recipeContext || isLoading}>
+      {isLoading ? <LoadingSpinner /> : (
+        <RecipeContext.Provider value={recipePageContext}>
+          <RecipeTitle>{title}</RecipeTitle>
+          {subTitle && <RecipeSubTitle>{`"${subTitle}"`}</RecipeSubTitle>}
+          {hasImage && <StyledImage src={recipeImage} alt={id} />}
+          <RecipeInfo>
+            <RecipeContent>
+              <RecipeContentHeader>Ingredients</RecipeContentHeader>
+              <RecipeIngredients />
+              <RecipeContentHeader>Instructions</RecipeContentHeader>
+              <RecipeInstructions>{instructions}</RecipeInstructions>
+            </RecipeContent>
+            <RecipeSidebar />
+          </RecipeInfo>
+        </RecipeContext.Provider>
+      )}
     </RecipePage>
   );
 }

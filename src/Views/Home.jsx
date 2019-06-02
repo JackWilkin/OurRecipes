@@ -1,13 +1,16 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
+import LoadingSpinner from '../Components/LoadingSpinner';
 import background from '../Content/Images/pasta.png';
 import RecipeCard from '../Components/RecipeCard';
 import GlobalContext from '../Context/GlobalContext';
+import { appBarHeight } from '../Styles/constants';
 
 const HomePage = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  height: ${props => (props.isLoading ? `calc(100% - ${appBarHeight})` : 'auto')}; 
 `;
 
 const Header = styled.div`
@@ -21,7 +24,6 @@ const Header = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   justify-content: center;
-  margin-bottom: 3rem;
 `;
 
 const FeaturedRecipes = styled.div`
@@ -32,6 +34,7 @@ const FeaturedRecipes = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  flex-grow: 1;
 `;
 
 const FeaturedRecipe = styled.div`
@@ -41,7 +44,7 @@ const FeaturedRecipe = styled.div`
 `;
 
 function Home() {
-  const { recipes } = useContext(GlobalContext);
+  const { recipes, isLoading } = useContext(GlobalContext);
 
   const featuredIds = [15, 34, 17, 33, 7, 35, 36];
   const featuredRecipes = recipes.filter(
@@ -56,12 +59,12 @@ function Home() {
     ),
   );
   return (
-    <HomePage>
+    <HomePage isLoading={isLoading}>
       <Header>
         {/* <Input placeholder="Search Recipes" /> */}
       </Header>
       <FeaturedRecipes>
-        {displayRecipes}
+        {isLoading ? <LoadingSpinner /> : displayRecipes}
       </FeaturedRecipes>
     </HomePage>
   );

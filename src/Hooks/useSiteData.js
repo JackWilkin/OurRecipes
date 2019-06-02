@@ -7,6 +7,7 @@ export default function useSiteData() {
   const [recipes, setRecipes] = React.useState([]);
   const [ingredientsByRecipe, setIngredientsByRecipe] = React.useState([]);
   const [availableUnits, setAvailableUnits] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
     (async () => {
@@ -29,6 +30,7 @@ export default function useSiteData() {
           if (ingredientsByRecipe && ingredientsByRecipe.length) {
             const ingredients = ingredientsByRecipe[recipe.id];
             const fullRecipe = { ...recipe, ingredients };
+            setIsLoading(false);
             return fullRecipe;
           }
           return recipe;
@@ -38,6 +40,7 @@ export default function useSiteData() {
   }, [ingredientsByRecipe]);
 
   return {
+    isLoading,
     recipes,
     availableUnits,
   };
