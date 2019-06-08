@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { Redirect } from 'react-router-dom';
+import SearchableSelect from '../Components/Search';
 import LoadingSpinner from '../Components/LoadingSpinner';
 import background from '../Content/Images/pasta.png';
 import RecipeCard from '../Components/RecipeCard';
@@ -58,10 +60,29 @@ function Home() {
       </FeaturedRecipe>
     ),
   );
+
+  const searchOptions = recipes.map(recipe => ({ label: recipe.title, value: recipe.id }));
+  const [doRedirect, setDoRedirect] = React.useState(false);
+  const [redirectLink, setRedirectLink] = React.useState('');
+  const redirect = (item) => {
+    if (Number.isInteger(item.value)) {
+      setRedirectLink(`/Recipe/${item.value}`);
+      setDoRedirect(true);
+    }
+  };
+
   return (
     <HomePage isLoading={isLoading}>
+      {doRedirect && <Redirect to={redirectLink} />}
       <Header>
-        {/* <Input placeholder="Search Recipes" /> */}
+        <SearchableSelect
+          id="home-search"
+          // label="Search"
+          onChange={redirect}
+          placeholder="Search recipes"
+          options={searchOptions}
+          isDisabled={isLoading}
+        />
       </Header>
       <FeaturedRecipes>
         {isLoading ? <LoadingSpinner /> : displayRecipes}
