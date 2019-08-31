@@ -13,7 +13,7 @@ export default function useSiteData() {
     (async () => {
       const fetchRecipeIngredients = client.getRecipeIngredients();
       const fetchAvailableUnits = client.getConvertableUnits();
-      // TODO: add these back after recipe proeview style facelift
+      // TODO: add these back after recipe preview style facelift
       // const fetchRecipes = client.getAllRecipes();
       // setRecipes(await fetchRecipes);
       setIngredientsByRecipe(await fetchRecipeIngredients);

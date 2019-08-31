@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from './Views/Home';
 import Browse from './Views/Browse';
 import Recipe from './Views/Recipe';
+import About from './Views/About';
 import useSiteData from './Hooks/useSiteData';
 import GlobalContext from './Context/GlobalContext';
 import AppBar from './Components/AppBar';
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/Recipe/:id" component={Recipe} />
         <Route exact path="/" component={Home} />
         <Route path="/Browse" component={Browse} />
+        <Route path="/About" component={About} />
       </GlobalContext.Provider>
     </Router>
   );

@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Input, Button } from 'semantic-ui-react';
+import RecipeContext from '../../Context/RecipeContext';
 import {
   darkBlue, mediumBlue, lightBlue, darkBlueTint,
-} from '../Styles/constants';
-import RecipeContext from '../Context/RecipeContext';
+} from '../../Styles/constants';
 
 const SCALE_BUTTON_COUNT = 3;
 const SCALE_BUTTON_WIDTH_VALUE = 3.2;

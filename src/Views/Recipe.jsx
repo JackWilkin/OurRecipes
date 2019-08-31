@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import LoadingSpinner from '../Components/LoadingSpinner';
-import RecipeSidebar from '../Components/RecipeSidebar';
+import ToolBar from '../Components/ToolBar';
 import RecipeIngredients from '../Components/RecipeIngredients';
 import RecipeContext from '../Context/RecipeContext';
 import { onMobile, appBarHeight } from '../Styles/constants';
@@ -97,8 +97,8 @@ function ovenHeatDisplay({ ovenHeat, isCelsius }) {
   let fahrenheit = 'Fahrenheit';
   if (hasOvenHeat) {
     const convertedTemp = convertTemperature(ovenHeat, isCelsius);
-    const celsiusDisplay = isCelsius ? ovenHeat : convertedTemp;
-    const fahrenheitDisplay = isCelsius ? convertedTemp : ovenHeat;
+    const celsiusDisplay = `${isCelsius ? ovenHeat : convertedTemp} C°`;
+    const fahrenheitDisplay = `${isCelsius ? convertedTemp : ovenHeat} F°`;
     celsius = celsiusDisplay;
     fahrenheit = fahrenheitDisplay;
   }
@@ -143,7 +143,7 @@ function Recipe(props) {
               <RecipeContentHeader>Instructions</RecipeContentHeader>
               <RecipeInstructions>{instructions}</RecipeInstructions>
             </RecipeContent>
-            <RecipeSidebar />
+            <ToolBar />
           </RecipeInfo>
         </RecipeContext.Provider>
       )}
