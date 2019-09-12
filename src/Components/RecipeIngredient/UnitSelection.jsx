@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import Radio from '@material-ui/core/Radio';
 import { withStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
-import GlobalContext from '../Context/GlobalContext';
-import { convertUnit } from '../utils';
-import { lightBlue, darkBlue } from '../Styles/constants';
+import GlobalContext from '../../Context/GlobalContext';
+import { convertUnit } from '../../utils';
+import { lightBlue, darkBlue } from '../../Styles/constants';
 
 const UnitTool = styled.div`
   display: flex;
