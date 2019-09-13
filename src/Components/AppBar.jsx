@@ -38,9 +38,9 @@ export default function AppBar() {
       <NavbarLink to="/Browse">
           Browse
       </NavbarLink>
-      {/* <NavbarLink>
+      <NavbarLink to="/About">
           About
-        </NavbarLink> */}
+      </NavbarLink>
       <NavbarLink to="/">
           Home
       </NavbarLink>
