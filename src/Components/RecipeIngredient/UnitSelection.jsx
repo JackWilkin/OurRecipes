@@ -61,8 +61,6 @@ export default function Unit(props) {
     />
   ));
 
-  console.log(availableUnits);
-
   return (
     <UnitTool>
       {unitChoices}

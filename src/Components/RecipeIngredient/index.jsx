@@ -88,7 +88,7 @@ export default function RecipeIngredient(props) {
   const [showNotes, setShowNotes] = React.useState(hasNotes);
 
   const unit = availableUnits.find(u => u.id === currentUnit);
-  const name = ingredient;
+  const { name } = ingredient;
   const quantityDisplay = decimalToFraction(currentQuantity * scaler);
 
   const openNotes = () => {
