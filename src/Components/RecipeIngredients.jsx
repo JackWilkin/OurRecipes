@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import RecipeIngredient from './RecipeIngredient';
 import RecipeContext from '../Context/RecipeContext';
+// 
 
 const Ingredients = styled.div``;
 
