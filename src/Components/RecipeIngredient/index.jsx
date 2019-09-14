@@ -13,7 +13,13 @@ const IngredientTool = styled.div`
   display: flex;
   outline: 1px solid ${darkBlue};
   flex-direction: column;
-  margin-bottom: 1rem;
+  flex-grow: 1;
+
+  ${props => (!props.disabled ? ''
+    : `background: #2e3e5578;
+  color: #0000005e;
+  pointer-events: none;`
+  )};
 `;
 
 const IngredientSummary = styled.div`    
@@ -25,9 +31,8 @@ const IngredientDetails = styled.span`
   display: flex;
   width: 100%;
   padding: 0.5rem;
-  background-color: #7080906e;
-  color: #777777;
-  font-weight: bold;
+  background-color: #70809024;
+  font-size: 0.875rem;
   text-align: center;
   border-top: 1px solid ${darkBlue};
 `;
@@ -39,8 +44,6 @@ const QuantityDisplay = styled.span`
   padding: 0.5rem;
   font-size: 1rem;
   border-right: 1px solid ${mediumBlue};
-  background-color: #7080906e;
-  color: #777777;
   font-weight: bold;
 `;
 
@@ -51,12 +54,14 @@ const UnitDisplay = styled.span`
   padding: 0.5rem;
   font-size: 1rem;
   border-right: 1px solid ${mediumBlue};
+  font-weight: bold;
 `;
 
 const IngredientDisplay = styled.span`
   display: flex;
   flex-grow: 1;
   padding: 0.5rem;
+  font-weight: bold;
 `;
 
 const UpCarrot = withStyles({
@@ -77,7 +82,7 @@ const DownCarrot = withStyles({
 })(ExpandMoreIcon);
 
 export default function RecipeIngredient(props) {
-  const { ingredient } = props;
+  const { ingredient, collapsed, disabled } = props;
   const { scaler } = useContext(RecipeContext);
   const { availableUnits } = useContext(GlobalContext);
   const [currentQuantity, setCurrentQuantity] = React.useState(ingredient.quantity);
@@ -100,8 +105,8 @@ export default function RecipeIngredient(props) {
   };
 
   return (
-    <IngredientTool disabled={!hasNotes}>
-      <Collapse in={showUnits} timeout="auto" unmountOnExit>
+    <IngredientTool disabled={disabled}>
+      <Collapse in={!collapsed && showUnits} timeout="auto" unmountOnExit>
         <UnitSelection
           setCurrentQuantity={setCurrentQuantity}
           currentUnit={currentUnit}
@@ -116,7 +121,7 @@ export default function RecipeIngredient(props) {
         <IngredientDisplay>{name}</IngredientDisplay>
         {hasNotes && <DownCarrot onClick={openNotes} />}
       </IngredientSummary>
-      <Collapse in={showNotes} timeout="auto" unmountOnExit>
+      <Collapse in={!collapsed && showNotes} timeout="auto" unmountOnExit>
         <IngredientDetails>{ingredient.notes}</IngredientDetails>
       </Collapse>
     </IngredientTool>
