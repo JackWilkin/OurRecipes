@@ -52,7 +52,7 @@ const RecipeLink = styled(Link)`
 
 const RecipeMedia = withStyles({
   root: {
-    height: '15rem',
+    height: '5rem',
     paddingTop: '56.25%',
   },
 })(CardMedia);

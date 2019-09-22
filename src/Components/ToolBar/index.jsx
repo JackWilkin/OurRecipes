@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faToolbox } from '@fortawesome/free-solid-svg-icons';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { withStyles } from '@material-ui/core/styles';
+import Collapse from '@material-ui/core/Collapse';
 import ScaleTool from './ScaleTool';
 import TempTool from './TempTool';
 import ApplianceTool from './ApplianceTool';
@@ -14,7 +16,6 @@ const Sidebar = styled.div`
     flex-direction: column;
     background-color: ${darkBlue};
     color: white;
-
     height: fit-content;
     margin-top: 1rem;
     margin-left: 1rem;
@@ -25,24 +26,27 @@ const Sidebar = styled.div`
 `;
 
 const Header = styled.div`
-    width: 100%;
     padding-top: 1rem;
     padding-bottom: 1rem;
     padding-left: 1rem;
     font-weight: bold;
     font-size: 1.5rem;
-
+    min-width: max-content;
     > :last-child {
         float: right;
+        padding-right: 0.5rem;
     }
 `;
 
-const Tools = styled.div`
-    background-color: ${mediumBlue};
-    transition: max-height 0.2s ease-out;
-    max-height: ${props => (props.isOpen ? '16rem' : '0')};
-    overflow: hidden;
-`;
+const Tools = withStyles({
+  wrapperInner: {
+    display: 'flex',
+    alignItems: 'center',
+    backgroundColor: mediumBlue,
+    flexWrap: 'wrap',
+    padding: '0.5rem',
+  },
+})(Collapse);
 
 const HeaderIcon = styled(FontAwesomeIcon)`
     margin-right: 1rem;
@@ -62,10 +66,9 @@ export default function ToolBar() {
     <Sidebar>
       <Header onClick={() => setExpanded(!expanded)}>
         <HeaderIcon icon={faToolbox} />
-          Tools
         <ExpandMoreIcon />
       </Header>
-      <Tools isOpen={expanded}>
+      <Tools in={expanded} timeout="auto" unmountOnExit>
         <ScaleTool />
         { hasTemperature && <TempTool /> }
         { hasAppliances && <ApplianceTool /> }

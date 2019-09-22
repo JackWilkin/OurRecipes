@@ -1,28 +1,22 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { Input, Button } from 'semantic-ui-react';
 import RecipeContext from '../../Context/RecipeContext';
 import {
-  darkBlue, mediumBlue, lightBlue, darkBlueTint,
+  darkBlue, mediumBlue,
 } from '../../Styles/constants';
-
-const SCALE_BUTTON_COUNT = 3;
-const SCALE_BUTTON_WIDTH_VALUE = 3.2;
-const SCALE_BUTTON_WIDTH = `${SCALE_BUTTON_WIDTH_VALUE}rem`;
 
 const Scale = styled.div`
     display: flex;
     flex-direction: column;
-    background-color: ${mediumBlue};
     border-right: 1px solid ${mediumBlue};
     border-left: 1px solid ${mediumBlue};
     border-bottom: 1px solid ${mediumBlue};
-    padding: 0.5rem;
 `;
 
 const ScaleHeader = styled.span`
     font-size: 1.1rem;
     padding-bottom: 0.5rem;
+    padding-left: 0.25rem;
 `;
 
 const Servings = styled.span`
@@ -30,46 +24,25 @@ const Servings = styled.span`
     float: right;
 `;
 
-// TODO: Convert to number format
-const ScaleInput = styled(Input)`
-    width: calc(100% - ${SCALE_BUTTON_COUNT * SCALE_BUTTON_WIDTH_VALUE}rem);
+const ScaleDisplay = styled.span`
 
-    &.ui.input {
-        &> input {
-            min-width: 4rem;
-            border-radius: 0;
-            width: 100%;
-            border: none;
-            text-align: center;
-        }
-    }   
 `;
 
-const ScaleButton = styled(Button)`
-
-    &.ui.button {
-        background-color: ${lightBlue};
-        border-left: solid 1px ${darkBlue};
-        border-radius: 0;
-        height: 100%;
-        width: ${SCALE_BUTTON_WIDTH};
-        margin: 0;
-        padding: 0;
-
-        :hover {
-            background-color: ${darkBlue};
-            color: white;
-        }
-
-        :active {
-            background-color: ${darkBlueTint};
-            color: white;
-        }
-    }
+const ScaleInput = styled.input`
+    width: 2rem;
+    height: 2rem;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    background: lightgrey;
+    border: 1px solid ${darkBlue};
+    padding: 0.25rem;
+    font-size: 1rem;
+    color: #555555;
 `;
 
 const ScaleButtons = styled.div`
     display: flex;
+    font-size: 1.5rem;
 `;
 
 export default function ScaleTool() {
@@ -77,32 +50,58 @@ export default function ScaleTool() {
   const [scalerDisplay, setScalerDisplay] = React.useState(scaler);
   const hasServings = !(servings === undefined);
 
-  const scaleRecipe = (newScaler) => {
-    const isNumber = !isNaN(newScaler);
-    if (isNumber) {
-      setScaler(+newScaler);
+  const scaleRecipe = (ones, numerator, denominator) => {
+    if (ones.value === '' && numerator.value === '' && denominator.value === '') {
+      setScaler(1);
+      setScalerDisplay(1);
+    } else {
+      const onesInteger = parseInt(ones.value, 10);
+      const numeratorInteger = parseInt(numerator.value, 10);
+      const denominatorInteger = parseInt(denominator.value, 10);
+      const onesIsValid = ones.value.match(/^[0-9]+$/) != null && onesInteger > 0;
+      const numeratorIsValid = numerator.value.match(/^[0-9]+$/) != null && numeratorInteger > 0;
+      const denominatorIsValid = denominator.value.match(/^[0-9]+$/) != null && denominatorInteger > 0;
+
+      if (onesIsValid) {
+        if (numeratorIsValid && denominatorIsValid) {
+          const newScaler = onesInteger + (numeratorInteger / denominatorInteger);
+          setScaler(newScaler);
+          setScalerDisplay(newScaler);
+        } else {
+          setScaler(onesInteger);
+          setScalerDisplay(onesInteger);
+        }
+      }
     }
-    setScalerDisplay(newScaler);
   };
 
   return (
     <Scale>
       <ScaleHeader>
-        Scale recipe
+        <ScaleDisplay>{`Scaler: ${scalerDisplay}`}</ScaleDisplay>
         {hasServings && <Servings>{`${servings * scaler} Servings`}</Servings>}
       </ScaleHeader>
-      <ScaleInput
-        value={scalerDisplay}
-        onChange={e => scaleRecipe(e.target.value)}
-        type="text"
-        action={(
-          <ScaleButtons>
-            <ScaleButton onClick={() => scaleRecipe(0.5)}>1/2</ScaleButton>
-            <ScaleButton onClick={() => scaleRecipe(1)}>1</ScaleButton>
-            <ScaleButton onClick={() => scaleRecipe(2)}>2</ScaleButton>
-          </ScaleButtons>
-        )}
-      />
+      <ScaleButtons>
+        <ScaleInput
+          id="ones"
+          min="1"
+          type="number"
+          onChange={e => scaleRecipe(e.target, document.getElementById('numerator'), document.getElementById('denominator'))}
+        />
+        <ScaleInput
+          id="numerator"
+          min="1"
+          type="number"
+          onChange={e => scaleRecipe(document.getElementById('ones'), e.target, document.getElementById('denominator'))}
+        />
+        <span>/</span>
+        <ScaleInput
+          id="denominator"
+          min="2"
+          type="number"
+          onChange={e => scaleRecipe(document.getElementById('ones'), document.getElementById('numerator'), e.target)}
+        />
+      </ScaleButtons>
     </Scale>
   );
 }

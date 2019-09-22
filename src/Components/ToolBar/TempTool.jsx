@@ -1,53 +1,46 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { Checkbox } from 'semantic-ui-react';
-import 'semantic-ui-css/semantic.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThermometerHalf } from '@fortawesome/free-solid-svg-icons';
+import Switch from '@material-ui/core/Checkbox';
+import { withStyles } from '@material-ui/core/styles';
 import Oven from '../../Content/Images/oven-white.png';
 import {
-  darkBlue, lightBlue, IconImage, TOOL_STYLES,
+  lightBlue, IconImage,
 } from '../../Styles/constants';
 import RecipeContext from '../../Context/RecipeContext';
+import { convertTemperature } from '../../utils';
 
-const TemperatureSwitch = styled(Checkbox)`
-    background-color: ${props => (props.checked ? lightBlue : 'lightgrey')};
-
-    :hover {
-      ${props => (props.checked ? '' : `background-color: ${darkBlue};`)};
-    }
-
-    &.ui.radio.checkbox {
-        min-width: auto;
-        label {
-            padding: 0.5rem;
-            color: ${props => (props.checked ? 'white' : 'gray')};
-
-            :hover {
-              ${props => (props.checked ? '' : 'color: white;')};
-            }
-
-            ::before, ::after {
-                display: none;
-            }
-        }
-    }
-`;
+const TemperatureSwitch = withStyles({
+  root: {
+    color: lightBlue,
+    backgroundColor: 'lightgrey',
+    borderRadius: 0,
+    '&$checked': {
+      backgroundColor: lightBlue,
+      color: 'lightgrey',
+    },
+  },
+  checked: {
+    backgroundColor: lightBlue,
+    color: 'lightgrey',
+  },
+})(Switch);
 
 const TemperatureTool = styled.div`
-    ${TOOL_STYLES}
     display: flex;
     height: fit-content;
-    width: 100%;
+    align-items: center;
+    margin-top: 1rem;
 `;
 
 const OvenHeatDisplay = styled.span`
-    width: 100%;
-    background-color: white;
-    color: ${darkBlue};
+    width: max-content;
+    color: white;
+    font-size: 1.25rem;
     display: flex;
     align-items: center;
-    justify-content: center;
+    margin-right: 1rem;
 `;
 
 const FAIconImage = styled(FontAwesomeIcon)`
@@ -57,12 +50,33 @@ const FAIconImage = styled(FontAwesomeIcon)`
     }
 `;
 
-export default function TempTool() {
-  const {
-    ovenHeat, setInCelsius, inCelsius, celsius, fahrenheit,
-  } = useContext(RecipeContext);
+/**
+ * Display values for temp tool
+ * @param {int} ovenHeat
+ * @param {bool} isCelsius
+ * @returns {String} celsius
+ * @returns {String} fahrenheit
+ */
+function ovenHeatDisplay({ ovenHeat, isCelsius }) {
+  const hasOvenHeat = ovenHeat > 0;
+  let celsius = 'Celsius';
+  let fahrenheit = 'Fahrenheit';
+  if (hasOvenHeat) {
+    const convertedTemp = convertTemperature(ovenHeat, isCelsius);
+    const celsiusDisplay = `${isCelsius ? ovenHeat : convertedTemp} C°`;
+    const fahrenheitDisplay = `${isCelsius ? convertedTemp : ovenHeat} F°`;
+    celsius = celsiusDisplay;
+    fahrenheit = fahrenheitDisplay;
+  }
+  return { celsius, fahrenheit };
+}
 
+export default function TempTool() {
+  const { ovenHeat, isCelsius } = useContext(RecipeContext);
+  const [inCelsius, setInCelsius] = React.useState(isCelsius);
+  const { celsius, fahrenheit } = ovenHeatDisplay({ ovenHeat, isCelsius });
   const hasOvenHeat = !(ovenHeat === 0);
+
   return (
     <TemperatureTool>
       {hasOvenHeat
@@ -70,18 +84,18 @@ export default function TempTool() {
         : <FAIconImage icon={faThermometerHalf} />}
 
       <OvenHeatDisplay>
-        {inCelsius ? celsius : fahrenheit}
+        { inCelsius ? celsius : fahrenheit}
       </OvenHeatDisplay>
       <TemperatureSwitch
-        radio
-        label="C°"
-        checked={inCelsius === true}
+        icon="C°"
+        checkedIcon="C°"
+        checked={inCelsius}
         onChange={() => setInCelsius(!inCelsius)}
       />
       <TemperatureSwitch
-        radio
-        label="F°"
-        checked={inCelsius === false}
+        icon="F°"
+        checkedIcon="F°"
+        checked={!inCelsius}
         onChange={() => setInCelsius(!inCelsius)}
       />
     </TemperatureTool>

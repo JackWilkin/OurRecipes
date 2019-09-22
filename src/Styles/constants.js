@@ -12,8 +12,3 @@ export const IconImage = styled.img`
     width: 2.5rem;
     height: 2.5rem;
 `;
-
-export const TOOL_STYLES = `
-    background-color: ${mediumBlue};
-    padding: 0.5rem;
-`;

@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { darkBlue, appBarHeight } from '../Styles/constants';
+import { darkBlue } from '../Styles/constants';
 
 const Navbar = styled.div`
   align-items: center;
   background-color: ${darkBlue};
   display: flex;
-  min-height: ${appBarHeight};
   width: 100%;
 `;
 
@@ -21,9 +20,9 @@ const NavbarTitle = styled.span`
 const NavbarLink = styled(Link)`
   border-left: 1px solid white;
   color: white;
-  height: 100%
   width: fit-content;
   padding: 1rem;
+  text-decoration: none;
 
   &:hover {
     background-color: white;

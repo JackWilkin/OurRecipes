@@ -1,13 +1,10 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import {
-  IconImage, TOOL_STYLES,
-} from '../../Styles/constants';
+import { IconImage } from '../../Styles/constants';
 import RecipeContext from '../../Context/RecipeContext';
 import Mixer from '../../Content/Images/mixer-white.png';
 
 const Appliances = styled.div`
-    ${TOOL_STYLES}
     display: flex;
 `;
 
